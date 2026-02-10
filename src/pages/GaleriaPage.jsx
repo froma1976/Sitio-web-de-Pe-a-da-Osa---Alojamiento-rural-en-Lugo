@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import PageHero from "@/components/PageHero";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,14 @@ import {
 function GaleriaPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const slugify = (str) =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
 
   // Group images by category
   const categories = [
@@ -121,30 +130,40 @@ function GaleriaPage() {
         />
       </Helmet>
 
-      {/* Header Section */}
-      <section className="bg-stone-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 font-serif">
-              Galería
-            </h1>
-            <p className="text-xl text-stone-300 max-w-3xl mx-auto">
-              Realiza un recorrido visual por Peña da Osa
-            </p>
-          </motion.div>
+      <PageHero
+        eyebrow="Galería"
+        title="Recorrido fotográfico"
+        subtitle="Interior, exterior y alrededores. Un vistazo fiel para que sepas exactamente lo que vas a vivir."
+        backgroundImage="/images/galeria/alrededor5.jpg"
+      />
+
+      {/* Category quick nav */}
+      <section className="bg-[#f5f3ef] border-y border-black/5">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-6">
+          <div className="flex gap-3 overflow-x-auto no-scrollbar">
+            {categories.map((c) => (
+              <button
+                key={c.name}
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById(slugify(c.name));
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="shrink-0 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase text-[#1a1e23] hover:bg-white hover:border-black/20 transition-colors"
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Gallery Grid by Category */}
-      <section className="py-20 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+      <section className="py-20 bg-[#f7f6f2]">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-20">
           {categories.map((category, catIndex) => (
-            <div key={catIndex}>
-              <h2 className="text-2xl font-bold text-stone-800 mb-8 border-b border-stone-200 pb-2 inline-block pr-8 font-serif">
+            <div key={catIndex} id={slugify(category.name)} className="scroll-mt-28">
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#1a1e23] mb-8 border-b border-black/10 pb-3 inline-block pr-10 font-serif">
                 {category.name}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -158,14 +177,14 @@ function GaleriaPage() {
                     className="group cursor-pointer"
                     onClick={() => openLightbox(imgUrl)}
                   >
-                    <div className="relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-64 bg-stone-200">
+                    <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-64 bg-black/5">
                       <img
                         src={imgUrl}
                         alt={`${category.name} - Vista ${imgIndex + 1}`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                   </motion.div>
                 ))}

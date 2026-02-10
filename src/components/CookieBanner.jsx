@@ -27,15 +27,15 @@ function CookieBanner() {
     if (!showBanner) return null;
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-stone-900 text-white p-4 shadow-2xl z-50 border-t-2 border-stone-700">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
+            <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-background/85 backdrop-blur-md shadow-2xl px-5 py-4">
                 <div className="flex items-start gap-3 flex-1">
-                    <Cookie className="h-6 w-6 text-stone-300 flex-shrink-0 mt-1" />
+                    <Cookie className="h-6 w-6 text-[#d4765d] flex-shrink-0 mt-1" />
                     <div>
-                        <p className="text-sm text-stone-200">
-                            Utilizamos cookies propias para mejorar tu experiencia de navegación.
-                            Al continuar navegando, aceptas nuestra{' '}
-                            <Link to="/cookies" className="underline hover:text-stone-100">
+                        <p className="text-sm text-foreground/80">
+                            Utilizamos cookies propias para mejorar tu experiencia de navegación. Al continuar,
+                            aceptas nuestra{' '}
+                            <Link to="/cookies" className="underline underline-offset-4 hover:text-foreground">
                                 Política de Cookies
                             </Link>.
                         </p>
@@ -46,14 +46,14 @@ function CookieBanner() {
                         variant="outline"
                         size="sm"
                         onClick={rejectCookies}
-                        className="bg-transparent border-stone-500 text-stone-200 hover:bg-stone-800 hover:text-white"
+                        className="rounded-full"
                     >
                         Rechazar
                     </Button>
                     <Button
                         size="sm"
                         onClick={acceptCookies}
-                        className="bg-white text-stone-900 hover:bg-stone-100"
+                        className="rounded-full bg-[#1a1e23] text-white hover:bg-[#d4765d]"
                     >
                         Aceptar
                     </Button>

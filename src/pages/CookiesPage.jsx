@@ -1,7 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
-import { Cookie, Shield, Info } from "lucide-react";
+import { Shield, Info } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 function CookiesPage() {
     return (
@@ -14,28 +15,16 @@ function CookiesPage() {
                 />
             </Helmet>
 
-            {/* Header Section */}
-            <section className="bg-stone-900 py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <Cookie className="h-16 w-16 text-white mx-auto mb-6" />
-                        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 font-serif">
-                            Política de Cookies
-                        </h1>
-                        <p className="text-xl text-stone-300 max-w-3xl mx-auto">
-                            Información sobre el uso de cookies en nuestro sitio web
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
+            <PageHero
+                eyebrow="Legal"
+                title="Política de cookies"
+                subtitle="Solo cookies propias y necesarias para recordar tu elección del banner."
+                backgroundImage="/images/galeria/sala.jpg"
+            />
 
             {/* Content Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="py-16 bg-[#f7f6f2]">
+                <div className="max-w-4xl mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

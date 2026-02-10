@@ -2,6 +2,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
+import PageHero from "@/components/PageHero";
 
 function ReservasPage() {
     return (
@@ -15,32 +16,22 @@ function ReservasPage() {
             </Helmet>
 
             {/* Header Section */}
-            <section className="bg-stone-900 py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 font-serif">
-                            Reserva tu Estancia
-                        </h1>
-                        <p className="text-xl text-stone-300 max-w-3xl mx-auto">
-                            Completa tu reserva de forma rápida y segura
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
+            <PageHero
+                eyebrow="Reservas"
+                title="Reserva tu estancia"
+                subtitle="Sistema online seguro. Si prefieres, también puedes abrirlo en una nueva pestaña."
+                backgroundImage="/images/galeria/exterior12.jpg"
+            />
 
             {/* Booking Iframe Section */}
-            <section className="py-10 bg-stone-50 min-h-screen">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="py-10 bg-[#f7f6f2] min-h-screen">
+                <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="bg-white rounded-2xl shadow-lg overflow-hidden"
+                        className="bg-white rounded-3xl shadow-sm overflow-hidden border border-black/10"
                         style={{ minHeight: '800px' }}
                     >
                         <iframe
@@ -51,6 +42,16 @@ function ReservasPage() {
                             title="Sistema de Reservas Peña da Osa"
                         />
                     </motion.div>
+                    <div className="mt-6 text-center">
+                        <a
+                            href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-5 py-2 text-xs font-semibold tracking-[0.18em] uppercase text-[#1a1e23] hover:bg-white hover:border-black/20 transition-colors"
+                        >
+                            Abrir en nueva pestaña
+                        </a>
+                    </div>
                 </div>
             </section>
         </>
