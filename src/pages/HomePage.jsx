@@ -141,21 +141,21 @@ function HomePage() {
 
               {/* Naturaleza */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
-                <img src="/images/galeria/alrededor8.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Naturaleza" />
+                <img src="/images/galeria/alrededor8.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Naturaleza" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Naturaleza</span>
               </div>
 
               {/* Paseos */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
-                <img src="/images/galeria/exterior6.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Paseos" />
+                <img src="/images/galeria/exterior6.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Paseos" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Paseos</span>
               </div>
 
               {/* Entorno - Image Swapped to exterior2.jpg */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
-                <img src="/images/galeria/alrededeor9.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Entorno" />
+                <img src="/images/galeria/alrededeor9.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Entorno" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Entorno</span>
               </div>
