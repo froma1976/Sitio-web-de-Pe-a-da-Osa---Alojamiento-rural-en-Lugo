@@ -28,6 +28,24 @@ function HomePage() {
       <Helmet>
         <title>Pena da Osa | Retiro Rural con Encanto</title>
         <meta name="description" content="Experimenta el encanto rural en Pena da Osa. Arquitectura de piedra, vistas infinitas y confort moderno en Galicia." />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://penadaosa.com/" />
+        <meta property="og:title" content="Pena da Osa | Retiro Rural con Encanto en Galicia" />
+        <meta property="og:description" content="Experimenta el encanto rural en Pena da Osa. Arquitectura de piedra, vistas infinitas y confort moderno en Lugo, Galicia." />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/alrededor.jpg" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://penadaosa.com/" />
+        <meta property="twitter:title" content="Pena da Osa | Retiro Rural con Encanto en Galicia" />
+        <meta property="twitter:description" content="Experimenta el encanto rural en Pena da Osa. Arquitectura de piedra, vistas infinitas y confort moderno." />
+        <meta property="twitter:image" content="https://penadaosa.com/images/galeria/alrededor.jpg" />
+
+        {/* Additional SEO */}
+        <link rel="canonical" content="https://penadaosa.com/" />
+        <meta name="keywords" content="casa rural galicia, alojamiento rural lugo, turismo rural galicia, casa rural con encanto, pena da osa" />
       </Helmet>
 
       <div ref={containerRef} className="bg-[#1a1e23] min-h-screen text-white font-sans selection:bg-[#d4765d] selection:text-white">
