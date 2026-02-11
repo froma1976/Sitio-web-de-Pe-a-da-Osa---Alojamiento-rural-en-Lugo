@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,79 +50,64 @@ function Header() {
   return (
     <>
       <header
-        className={
-          "fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300"
-        }
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+          isScrolled
+            ? "bg-[#1a1e23]/80 backdrop-blur-md py-3 border-white/10 shadow-lg"
+            : "bg-transparent py-6 border-transparent"
+        }`}
       >
-        <div
-          className={
-            "pointer-events-auto mx-auto flex w-full max-w-[1400px] items-start justify-between px-4 md:px-8" +
-            (isScrolled
-              ? " py-4"
-              : " py-6 md:py-8")
-          }
-        >
+        <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 md:px-12">
+          
+          {/* Logo */}
+          <Link to="/" className="group flex items-center gap-2" aria-label="Ir a inicio">
+            <span className={`font-signature text-2xl md:text-3xl text-[#e5c988] transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0 md:opacity-100'}`}>
+              Pena da Osa
+            </span>
+          </Link>
 
-          {/* Logo - Mobile Only (Floating Left) */}
-          <div className="pointer-events-auto md:hidden">
-            <Link to="/" className="block group" aria-label="Ir a inicio">
-              <span className="font-serif text-2xl tracking-wide text-white group-hover:text-[#e5c988] transition-colors">
-                Pena da Osa
-              </span>
-            </Link>
-          </div>
-
-          {/* Navigation Block - Top Right Cream Box */}
-          {/* Navigation Block - Centered with Logo beside */}
-          {/* Navigation Block - Top Right (No Logo) */}
-          <div
-            className={
-              "pointer-events-auto hidden md:flex items-center gap-8 pl-8 pr-2 py-1 ml-auto rounded-full border shadow-lg transition-all duration-300" +
-              (isScrolled
-                ? " bg-[#1a1e23]/90 backdrop-blur-md border-white/10"
-                : " bg-[#1a1e23]/70 backdrop-blur-sm border-white/5")
-            }
-          >
-            <nav className="flex items-center gap-6 py-3">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            <nav className="flex items-center gap-8">
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}
                   to={item.path}
                   end={item.path === "/"}
-                  className={linkClass}
+                  className={({ isActive }) =>
+                    `text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 ${
+                      isActive ? "text-[#d4765d]" : "text-white/80 hover:text-white hover:tracking-[0.25em]"
+                    }`
+                  }
                 >
                   {item.name}
                 </NavLink>
               ))}
             </nav>
-            <div className="pr-1 py-1">
-              <a
-                href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center rounded-full px-6 py-2.5 text-xs font-semibold tracking-[0.18em] uppercase transition-all bg-[#1a1e23] text-white hover:bg-[#d4765d]"
-              >
-                Reservar
-              </a>
-            </div>
+
+            {/* CTA Button */}
+            <a
+              href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`
+                inline-flex items-center rounded-full px-6 py-2.5 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300
+                ${isScrolled 
+                  ? "bg-[#e5c988] text-[#1a1e23] hover:bg-white" 
+                  : "bg-white/10 text-white backdrop-blur-sm hover:bg-[#e5c988] hover:text-[#1a1e23] border border-white/20"}
+              `}
+            >
+              Reservar
+            </a>
           </div>
 
-          {/* Mobile Menu Button - Visible only on mobile */}
-          <div className="pointer-events-auto md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              className={
-                "text-white p-3 rounded-full shadow-lg border transition-all " +
-                (isScrolled
-                  ? "bg-[#1a1e23]/90 backdrop-blur-md border-white/10"
-                  : "bg-[#1a1e23]/70 backdrop-blur-sm border-white/5")
-              }
-              aria-label="Abrir menu"
-              aria-expanded={isMenuOpen}
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="md:hidden text-white p-2"
+            aria-label="Abrir menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
       </header>
 

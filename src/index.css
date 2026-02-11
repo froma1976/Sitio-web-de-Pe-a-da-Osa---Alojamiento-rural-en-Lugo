@@ -2,6 +2,8 @@
   TEMPLATE STYLES: These styles are used as a base template.
   Styles should be edited to match the requirements of the project.
 */
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Pinyon+Script&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

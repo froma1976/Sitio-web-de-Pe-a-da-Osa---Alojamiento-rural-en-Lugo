@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 
@@ -11,6 +11,9 @@ function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-2">
             <Link to="/" className="inline-block mb-6 group">
+              <span className="block font-signature text-2xl text-[#d4765d] mb-[-0.5rem] opacity-80">
+                Retiro Rural
+              </span>
               <span className="text-3xl md:text-4xl font-serif text-[#e5c988] hover:text-white transition-colors tracking-tight">
                 Pena da Osa
               </span>

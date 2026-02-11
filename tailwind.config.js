@@ -16,6 +16,10 @@ module.exports = {
 			},
 		},
 		extend: {
+            fontFamily: {
+                signature: ['"Pinyon Script"', 'cursive'],
+                hand: ['"Mrs Saint Delafield"', 'cursive'],
+            },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
