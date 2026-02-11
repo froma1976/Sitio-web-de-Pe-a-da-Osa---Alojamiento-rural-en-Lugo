@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
+import WeatherWidget from "./WeatherWidget";
 
 function Footer() {
   return (
@@ -18,10 +19,15 @@ function Footer() {
                 Pena da Osa
               </span>
             </Link>
-            <p className="text-stone-400 text-lg leading-relaxed max-w-md font-light">
+            <p className="text-stone-400 text-lg leading-relaxed max-w-md font-light mb-8">
               Un refugio con encanto donde la arquitectura tradicional de piedra se fusiona con el confort moderno.
               El escenario perfecto para crear recuerdos inolvidables en el corazón de Galicia.
             </p>
+            
+            {/* Weather Widget Integrated Here */}
+            <div className="inline-block">
+                <WeatherWidget />
+            </div>
           </div>
 
           {/* Contact Information */}

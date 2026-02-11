@@ -126,8 +126,17 @@ function GaleriaPage() {
         <title>Galería - Pena da Osa | Recorrido Fotográfico</title>
         <meta
           name="description"
-          content="Explora la galería de fotos de Pena da Osa. Vea nuestras habitaciones, cocina, patio, zona de barbacoa, sala de cine y los impresionantes alrededores exteriores."
+          content="Explora la galería de fotos de Pena da Osa. Vea nuestras habitaciones, cocina, patio, zona de barbacoa y los impresionantes alrededores."
         />
+        <link rel="canonical" href="https://penadaosa.com/galeria" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://penadaosa.com/galeria" />
+        <meta property="og:title" content="Galería - Pena da Osa | Recorrido Fotográfico" />
+        <meta property="og:description" content="Explora cada rincón de Pena da Osa a través de nuestra galería fotográfica." />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/alrededor5.jpg" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Galería - Pena da Osa | Recorrido Fotográfico" />
+        <meta property="twitter:image" content="https://penadaosa.com/images/galeria/alrededor5.jpg" />
       </Helmet>
 
       <PageHero

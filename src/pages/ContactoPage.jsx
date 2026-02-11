@@ -48,11 +48,17 @@ function ContactoPage() {
   return (
     <>
       <Helmet>
-        <title>Contacto - Pena da Osa | Reserva tu Estancia</title>
+        <title>Contacto - Pena da Osa | Reserva tu Estancia en Galicia</title>
         <meta
           name="description"
-          content="Contacta con Pena da Osa en Sober, Galicia. Llama al +34 639 403 998 o escríbenos a turismoruralpendaosa@gmail.com."
+          content="Contacta con Pena da Osa en Sober, Lugo. Llama al +34 639 403 998 o visítanos en el corazón de la Ribeira Sacra."
         />
+        <link rel="canonical" href="https://penadaosa.com/contacto" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://penadaosa.com/contacto" />
+        <meta property="og:title" content="Contacto - Pena da Osa | Reserva tu Estancia" />
+        <meta property="og:description" content="Estamos aquí para ayudarte. Contacta con nosotros para cualquier duda o reserva." />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/exterior10.jpg" />
       </Helmet>
 
       <PageHero

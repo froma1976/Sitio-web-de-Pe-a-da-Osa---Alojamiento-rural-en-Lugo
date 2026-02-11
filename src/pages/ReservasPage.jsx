@@ -8,11 +8,16 @@ function ReservasPage() {
     return (
         <>
             <Helmet>
-                <title>Reservas - Pena da Osa | Reserva tu Estancia</title>
+                <title>Reservas - Pena da Osa | Reserva Online Segura</title>
                 <meta
                     name="description"
-                    content="Reserva tu estancia en Pena da Osa. Sistema de reservas online seguro y fácil de usar."
+                    content="Reserva tu estancia en Pena da Osa. Sistema de reservas online seguro para tu escapada a Galicia."
                 />
+                <link rel="canonical" href="https://penadaosa.com/reservas" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://penadaosa.com/reservas" />
+                <meta property="og:title" content="Reservas - Pena da Osa | Reserva tu Estancia" />
+                <meta property="og:image" content="https://penadaosa.com/images/galeria/exterior12.jpg" />
             </Helmet>
 
             {/* Header Section */}

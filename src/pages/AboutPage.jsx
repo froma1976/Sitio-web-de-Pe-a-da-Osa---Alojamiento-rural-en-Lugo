@@ -20,11 +20,21 @@ function AboutPage() {
   return (
     <>
       <Helmet>
-        <title>La Casa - Pena da Osa</title>
+        <title>La Casa - Pena da Osa | Alojamiento Rural con Encanto</title>
         <meta
           name="description"
           content="Conozca más sobre Pena da Osa. Descubra nuestra arquitectura de piedra, vistas al campo y todas las comodidades en el corazón de la naturaleza."
         />
+        <link rel="canonical" href="https://penadaosa.com/about" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://penadaosa.com/about" />
+        <meta property="og:title" content="La Casa - Pena da Osa | Alojamiento Rural con Encanto" />
+        <meta property="og:description" content="Conozca más sobre Pena da Osa. Descubra nuestra arquitectura de piedra, vistas al campo y todas las comodidades en el corazón de la naturaleza." />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/exterior9.jpg" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="La Casa - Pena da Osa | Alojamiento Rural con Encanto" />
+        <meta property="twitter:description" content="Descubra nuestra arquitectura de piedra y el confort moderno en el corazón de Galicia." />
+        <meta property="twitter:image" content="https://penadaosa.com/images/galeria/exterior9.jpg" />
       </Helmet>
 
       <PageHero

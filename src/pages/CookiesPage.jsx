@@ -11,8 +11,13 @@ function CookiesPage() {
                 <title>Política de Cookies - Pena da Osa</title>
                 <meta
                     name="description"
-                    content="Información sobre el uso de cookies en el sitio web de Pena da Osa."
+                    content="Información sobre el uso de cookies en el sitio web de Pena da Osa. Transparencia y privacidad."
                 />
+                <link rel="canonical" href="https://penadaosa.com/cookies" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://penadaosa.com/cookies" />
+                <meta property="og:title" content="Política de Cookies - Pena da Osa" />
+                <meta property="og:image" content="https://penadaosa.com/images/galeria/sala.jpg" />
             </Helmet>
 
             <PageHero
