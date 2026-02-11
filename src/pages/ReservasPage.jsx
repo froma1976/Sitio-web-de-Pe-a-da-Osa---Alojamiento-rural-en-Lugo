@@ -1,4 +1,4 @@
-
+﻿
 import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
@@ -8,10 +8,10 @@ function ReservasPage() {
     return (
         <>
             <Helmet>
-                <title>Reservas - Peña da Osa | Reserva tu Estancia</title>
+                <title>Reservas - Pena da Osa | Reserva tu Estancia</title>
                 <meta
                     name="description"
-                    content="Reserva tu estancia en Peña da Osa. Sistema de reservas online seguro y fácil de usar."
+                    content="Reserva tu estancia en Pena da Osa. Sistema de reservas online seguro y fácil de usar."
                 />
             </Helmet>
 
@@ -39,7 +39,7 @@ function ReservasPage() {
                             width="100%"
                             height="800px"
                             style={{ border: 0, display: 'block' }}
-                            title="Sistema de Reservas Peña da Osa"
+                            title="Sistema de Reservas Pena da Osa"
                         />
                     </motion.div>
                     <div className="mt-6 text-center">

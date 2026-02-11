@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 
@@ -10,13 +10,13 @@ function Footer() {
 
           {/* Brand Section */}
           <div className="md:col-span-2">
-            <Link to="/" className="inline-block mb-6">
-              <span className="text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
-                Peña da Osa
+            <Link to="/" className="inline-block mb-6 group">
+              <span className="text-3xl md:text-4xl font-serif text-[#e5c988] hover:text-white transition-colors tracking-tight">
+                Pena da Osa
               </span>
             </Link>
             <p className="text-stone-400 text-lg leading-relaxed max-w-md font-light">
-              Un refugio de lujo donde la arquitectura tradicional de piedra se fusiona con el confort moderno.
+              Un refugio con encanto donde la arquitectura tradicional de piedra se fusiona con el confort moderno.
               El escenario perfecto para crear recuerdos inolvidables en el corazón de Galicia.
             </p>
           </div>
@@ -81,7 +81,7 @@ function Footer() {
 
         <div className="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-stone-600 font-light">
-            &copy; {new Date().getFullYear()} Peña da Osa. All rights reserved.
+            &copy; {new Date().getFullYear()} Pena da Osa. All rights reserved.
           </p>
 
           <div className="flex items-center gap-6">

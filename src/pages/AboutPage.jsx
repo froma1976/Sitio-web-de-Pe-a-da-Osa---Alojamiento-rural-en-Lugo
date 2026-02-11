@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { Mountain, Wifi, Trees, Coffee, Flame, Users, Calendar, Dog } from "lucide-react";
@@ -20,21 +20,21 @@ function AboutPage() {
   return (
     <>
       <Helmet>
-        <title>La Villa - Peña da Osa</title>
+        <title>La Casa - Pena da Osa</title>
         <meta
           name="description"
-          content="Conozca más sobre Peña da Osa. Descubra nuestra arquitectura de piedra, vistas al campo y comodidades de lujo en el corazón de la naturaleza."
+          content="Conozca más sobre Pena da Osa. Descubra nuestra arquitectura de piedra, vistas al campo y todas las comodidades en el corazón de la naturaleza."
         />
       </Helmet>
 
       <PageHero
-        eyebrow="La villa"
+        eyebrow="La Casa"
         title={
           <>
-            Acerca de <span className="text-[#e5c988] italic">Peña da Osa</span>
+            Acerca de <span className="text-[#e5c988] italic">Pena da Osa</span>
           </>
         }
-        subtitle="Una propiedad meticulosamente restaurada que honra la tradición gallega al tiempo que abraza el lujo moderno."
+        subtitle="Una propiedad meticulosamente restaurada que honra la tradición gallega al tiempo que abraza el confort moderno."
         backgroundImage="/images/galeria/exterior9.jpg"
       />
 
@@ -50,7 +50,7 @@ function AboutPage() {
             >
               <img
                 src="/images/galeria/salon.jpg"
-                alt="Interior de Peña da Osa"
+                alt="Interior de Pena da Osa"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
               />
               <div className="absolute inset-0 border-[1px] border-white/20 rounded-[2rem] pointer-events-none mix-blend-overlay"></div>
@@ -64,7 +64,7 @@ function AboutPage() {
               <h2 className="text-4xl md:text-5xl font-serif text-[#1a1e23] mb-8">El Alma de la Casa</h2>
               <div className="h-1 w-20 bg-[#c06c50] mb-8"></div>
               <p className="text-stone-600 mb-6 leading-relaxed text-lg font-light">
-                Peña da Osa es un testimonio de la belleza duradera de la arquitectura tradicional de piedra.
+                Pena da Osa es un testimonio de la belleza duradera de la arquitectura tradicional de piedra.
                 Ubicada en un paisaje sereno con vistas al campo, nuestra propiedad ha sido cuidadosamente
                 renovada para ofrecer un ambiente cálido y acogedor.
               </p>
@@ -132,13 +132,13 @@ function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           <h2 className="text-5xl md:text-6xl font-serif text-[#1a1e23] mb-8">Tu Refugio en Galicia</h2>
           <p className="text-[#c06c50] text-xl font-medium tracking-wide mb-10">
-            Experimenta la magia de Peña da Osa.
+            Experimenta la magia de Pena da Osa.
           </p>
-          <a href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-[#1a1e23] text-white hover:bg-[#c06c50] text-lg px-12 py-8 rounded-full shadow-2xl transition-all font-serif">
+          <Button size="lg" className="bg-[#1a1e23] text-white hover:bg-[#c06c50] text-lg px-12 py-8 rounded-full shadow-2xl transition-all font-serif" asChild>
+            <a href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es" target="_blank" rel="noopener noreferrer">
               Reserva Ahora
-            </Button>
-          </a>
+            </a>
+          </Button>
         </div>
       </section>
     </>

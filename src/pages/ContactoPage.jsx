@@ -1,13 +1,9 @@
-
-import React, { useMemo, useState } from "react";
+﻿
+import React, { useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Copy } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 
 function ContactoPage() {
@@ -40,7 +36,6 @@ function ContactoPage() {
     []
   );
 
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const onCopy = async (value) => {
     try {
       await navigator.clipboard.writeText(value);
@@ -50,22 +45,13 @@ function ContactoPage() {
     }
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const subject = encodeURIComponent("Consulta desde la web - Peña da Osa");
-    const body = encodeURIComponent(
-      `Nombre: ${form.name}\nEmail: ${form.email}\n\nMensaje:\n${form.message}`
-    );
-    window.location.href = `mailto:turismoruralpendaosa@gmail.com?subject=${subject}&body=${body}`;
-  };
-
   return (
     <>
       <Helmet>
-        <title>Contacto - Peña da Osa | Reserva tu Estancia</title>
+        <title>Contacto - Pena da Osa | Reserva tu Estancia</title>
         <meta
           name="description"
-          content="Contacta con Peña da Osa en Sober, Galicia. Llama al +34 639 403 998 o escríbenos a turismoruralpendaosa@gmail.com."
+          content="Contacta con Pena da Osa en Sober, Galicia. Llama al +34 639 403 998 o escríbenos a turismoruralpendaosa@gmail.com."
         />
       </Helmet>
 
@@ -156,7 +142,7 @@ function ContactoPage() {
             </motion.div>
 
             {/* Google Maps Embed */}
-            {/* Right: form + map */}
+            {/* Right: map only */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -164,88 +150,29 @@ function ContactoPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="lg:col-span-7"
             >
-              <div className="rounded-3xl border border-black/10 bg-white/80 backdrop-blur-sm p-7 md:p-10 shadow-sm">
-                <h2 className="text-2xl md:text-3xl font-serif text-[#1a1e23]">
-                  Envía un mensaje
-                </h2>
-                <p className="mt-3 text-black/60 leading-relaxed">
-                  Sin formularios raros: al enviar, se abrirá tu app de correo con el mensaje preparado.
-                </p>
-
-                <form onSubmit={onSubmit} className="mt-8 grid gap-5">
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Nombre</Label>
-                      <Input
-                        id="name"
-                        value={form.name}
-                        onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
-                        placeholder="Tu nombre"
-                        autoComplete="name"
-                        required
-                      />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={form.email}
-                        onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
-                        placeholder="tu@email.com"
-                        autoComplete="email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="message">Mensaje</Label>
-                    <Textarea
-                      id="message"
-                      value={form.message}
-                      onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
-                      placeholder="Fechas, numero de personas, dudas..."
-                      rows={5}
-                      required
+              <div className="h-full">
+                <a
+                  href="https://www.google.com/maps/place/Pena+da+osa+-+casa+rural+-+Ribeira+sacra/@42.459802,-7.581345,15z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full"
+                >
+                  <div className="bg-black/5 h-full min-h-[400px] rounded-3xl border border-black/10 overflow-hidden shadow-sm hover:shadow-xl transition-shadow cursor-pointer relative group">
+                    <img
+                      src="/mapa-ubicacion.png"
+                      alt="Mapa de ubicación de Pena da Osa en Sober, Galicia"
+                      className="w-full h-full object-cover"
                     />
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <Button
-                      type="submit"
-                      className="w-full sm:w-auto rounded-full bg-[#1a1e23] text-white hover:bg-[#d4765d] px-8 tracking-[0.18em] uppercase"
-                    >
-                      Preparar email
-                    </Button>
-                    <p className="text-xs text-black/45">
-                      O llámanos: <a className="underline" href="tel:+34639403998">+34 639 403 998</a>
-                    </p>
-                  </div>
-                </form>
-              </div>
-
-              <div className="mt-8">
-              <a
-                href="https://www.google.com/maps/place/Pena+da+osa+-+casa+rural+-+Ribeira+sacra/@42.459802,-7.581345,15z"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <div className="bg-black/5 h-96 rounded-3xl border border-black/10 overflow-hidden shadow-sm hover:shadow-xl transition-shadow cursor-pointer relative group">
-                  <img
-                    src="/mapa-ubicacion.png"
-                    alt="Mapa de ubicación de Peña da Osa en Sober, Galicia"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 px-6 py-3 rounded-full shadow-lg">
-                      <p className="text-stone-800 font-semibold flex items-center gap-2">
-                        <MapPin className="h-5 w-5" />
-                        Ver en Google Maps
-                      </p>
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 px-6 py-3 rounded-full shadow-lg">
+                        <p className="text-stone-800 font-semibold flex items-center gap-2">
+                          <MapPin className="h-5 w-5" />
+                          Ver en Google Maps
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
               </div>
             </motion.div>
 

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { Shield, Info } from "lucide-react";
@@ -8,10 +8,10 @@ function CookiesPage() {
     return (
         <>
             <Helmet>
-                <title>Política de Cookies - Peña da Osa</title>
+                <title>Política de Cookies - Pena da Osa</title>
                 <meta
                     name="description"
-                    content="Información sobre el uso de cookies en el sitio web de Peña da Osa."
+                    content="Información sobre el uso de cookies en el sitio web de Pena da Osa."
                 />
             </Helmet>
 
@@ -56,7 +56,7 @@ function CookiesPage() {
                                         ¿Qué cookies utilizamos?
                                     </h2>
                                     <p className="text-stone-600 leading-relaxed mb-4">
-                                        En Peña da Osa únicamente utilizamos cookies estrictamente necesarias para
+                                        En Pena da Osa únicamente utilizamos cookies estrictamente necesarias para
                                         el funcionamiento básico del sitio web:
                                     </p>
                                     <ul className="space-y-2 text-stone-600">

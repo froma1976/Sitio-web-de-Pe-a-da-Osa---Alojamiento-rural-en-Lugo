@@ -1,4 +1,4 @@
-
+﻿
 import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
@@ -50,10 +50,10 @@ function EntornoPage() {
   return (
     <>
       <Helmet>
-        <title>Entorno - Peña da Osa | Ribeira Sacra, Cañones del Sil</title>
+        <title>Entorno - Pena da Osa | Ribeira Sacra, Cañones del Sil</title>
         <meta
           name="description"
-          content="Descubre el entorno de Peña da Osa en Sober: Cañones del Sil, bodegas D.O. Ribeira Sacra, monasterios románicos y rutas de senderismo. A 500m del centro."
+          content="Descubre el entorno de Pena da Osa en Sober: Cañones del Sil, bodegas D.O. Ribeira Sacra, monasterios románicos y rutas de senderismo. A 500m del centro."
         />
       </Helmet>
 
@@ -262,7 +262,7 @@ function EntornoPage() {
               Ubicación Privilegiada
             </h2>
             <p className="text-xl text-amber-100 max-w-3xl mx-auto">
-              Peña da Osa está estratégicamente ubicada para que puedas disfrutar
+              Pena da Osa está estratégicamente ubicada para que puedas disfrutar
               de todos los atractivos de la Ribeira Sacra
             </p>
           </motion.div>

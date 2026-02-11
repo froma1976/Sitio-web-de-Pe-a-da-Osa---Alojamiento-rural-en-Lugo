@@ -1,4 +1,4 @@
-
+﻿
 import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
@@ -60,10 +60,10 @@ function LaCasaPage() {
   return (
     <>
       <Helmet>
-        <title>La Casa - Peña da Osa | 6 Habitaciones, 7 Baños, Sala de Cine</title>
+        <title>La Casa - Pena da Osa | 6 Habitaciones, 7 Baños, Sala de Cine</title>
         <meta
           name="description"
-          content="Descubre Peña da Osa: casa rural de 3 plantas con 6 habitaciones, 7 baños (casi todas con baño privado), sala de cine, cocina equipada y patio tradicional."
+          content="Descubre Pena da Osa: casa rural de 3 plantas con 6 habitaciones, 7 baños (casi todas con baño privado), sala de cine, cocina equipada y patio tradicional."
         />
       </Helmet>
 

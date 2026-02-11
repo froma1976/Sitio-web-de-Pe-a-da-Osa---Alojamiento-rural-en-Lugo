@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+﻿import React, { useRef } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -26,8 +26,8 @@ function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Peña da Osa | Retiro Rural de Lujo</title>
-        <meta name="description" content="Experimenta el lujo rural en Peña da Osa. Arquitectura de piedra, vistas infinitas y confort moderno en Galicia." />
+        <title>Pena da Osa | Retiro Rural con Encanto</title>
+        <meta name="description" content="Experimenta el encanto rural en Pena da Osa. Arquitectura de piedra, vistas infinitas y confort moderno en Galicia." />
       </Helmet>
 
       <div ref={containerRef} className="bg-[#1a1e23] min-h-screen text-white font-sans selection:bg-[#d4765d] selection:text-white">
@@ -58,7 +58,7 @@ function HomePage() {
             className="relative z-10 text-center"
           >
             <h1 className="text-[12vw] leading-none font-serif text-[#e5c988] drop-shadow-2xl tracking-tighter opacity-90">
-              PEÑA DA OSA
+              Pena da Osa
             </h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -66,7 +66,7 @@ function HomePage() {
               transition={{ delay: 0.5, duration: 1 }}
               className="text-white/80 text-xs md:text-base tracking-[0.38em] font-light mt-6 uppercase"
             >
-              Lugo, Galicia • Retiro rural de lujo
+              Lugo, Galicia • Retiro rural con encanto
             </motion.p>
 
             <motion.div
@@ -75,17 +75,22 @@ function HomePage() {
               transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
               className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <Link to="/reservas">
-                <Button
-                  size="lg"
-                  className="rounded-full px-10 h-12 bg-white text-[#1a1e23] hover:bg-[#e5c988] hover:text-[#1a1e23] font-semibold tracking-[0.18em] uppercase"
+              <Button
+                size="lg"
+                className="rounded-full px-10 h-12 bg-white text-[#1a1e23] hover:bg-[#e5c988] hover:text-[#1a1e23] font-semibold tracking-[0.18em] uppercase"
+                asChild
+              >
+                <a
+                  href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Reservar
-                </Button>
-              </Link>
+                </a>
+              </Button>
               <Link to="/about" className="group inline-flex items-center gap-2">
                 <span className="text-xs tracking-[0.35em] uppercase text-white/80 group-hover:text-white transition-colors">
-                  Descubrir la villa
+                  Descubrir la casa
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-all" />
               </Link>
@@ -96,7 +101,7 @@ function HomePage() {
 
         {/* === BENTO BOX SECTION (Terracotta) === */}
         {/* Floating overlap - negative margin to pull it up into Hero */}
-        <section className="relative z-20 -mt-32 md:-mt-40 px-4 max-w-[1400px] mx-auto">
+        <section className="relative z-20 -mt-32 md:-mt-40 px-4 max-w-[1400px] mx-auto mb-48">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -104,59 +109,39 @@ function HomePage() {
             variants={scaleIn}
             className="bg-[#d4765d] p-4 md:p-6 rounded-[2rem] md:rounded-[3rem] shadow-2xl border-t border-white/10"
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-auto md:h-[600px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto">
 
-              {/* LARGE LEFT CARD: Stone Architecture */}
-              <div className="md:col-span-6 relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px] md:h-full">
-                <img src="/images/galeria/exterior.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Stone House" />
+              {/* Arquitectura */}
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
+                <img src="/images/galeria/exterior11.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Arquitectura" />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                 <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 max-w-xs">
-                  <h3 className="text-3xl md:text-5xl font-serif leading-tight mb-2">Arquitectura de piedra</h3>
+                  <h3 className="text-2xl md:text-3xl font-serif leading-tight mb-2">Arquitectura de piedra</h3>
                   <div className="h-[2px] w-12 bg-[#e5c988]"></div>
                 </div>
               </div>
 
-              {/* RIGHT GRID */}
-              <div className="md:col-span-6 grid grid-cols-2 grid-rows-2 gap-4 h-[400px] md:h-full">
-
-                {/* Top Left: Small Image */}
-                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group">
-                  <img src="/images/galeria/alrededor1.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Landscape" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Vistas</span>
-                </div>
-
-                {/* Top Right: Dark Card (Kitchen) */}
-                <div className="bg-[#1a1e23] rounded-2xl md:rounded-3xl flex flex-col justify-center items-center text-center p-6 group hover:bg-[#252b32] transition-colors relative overflow-hidden">
-                  <div className="absolute top-4 right-4 text-[#d4765d]">
-                    <Utensils className="w-6 h-6" />
-                  </div>
-                  <ChefHat className="w-12 h-12 text-[#e5c988] mb-4 group-hover:scale-110 transition-transform" />
-                  <h4 className="font-serif text-xl md:text-2xl text-white mb-1">Cocina &<br />Comedor</h4>
-                  <p className="text-white/40 text-xs uppercase tracking-wider mt-2">Equipada</p>
-                </div>
-
-                {/* Bottom Left: Dark Card (Cinema/Lounge) */}
-                <div className="bg-[#1a1e23] rounded-2xl md:rounded-3xl flex flex-col justify-center items-center text-center p-6 group hover:bg-[#252b32] transition-colors relative overflow-hidden">
-                  <div className="absolute top-4 right-4 text-[#d4765d]">
-                    <Wifi className="w-6 h-6" />
-                  </div>
-                  <Dog className="w-12 h-12 text-[#e5c988] mb-4 group-hover:scale-110 transition-transform" />
-                  <h4 className="font-serif text-xl md:text-2xl text-white mb-1">Pet<br />Friendly</h4>
-                  <p className="text-white/40 text-xs uppercase tracking-wider mt-2">Ven con el tuyo</p>
-                </div>
-
-                {/* Bottom Right: Dark Card (Pool/Nature) icon-based */}
-                <div className="bg-[#1a1e23] rounded-2xl md:rounded-3xl flex flex-col justify-center items-center text-center p-6 group hover:bg-[#252b32] transition-colors relative overflow-hidden">
-                  <div className="absolute top-4 right-4 text-[#d4765d]">
-                    <Waves className="w-6 h-6" />
-                  </div>
-                  <Mountain className="w-12 h-12 text-[#e5c988] mb-4 group-hover:scale-110 transition-transform" />
-                  <h4 className="font-serif text-xl md:text-2xl text-white mb-1">Entorno<br />Natural</h4>
-                  <p className="text-white/40 text-xs uppercase tracking-wider mt-2">Vistas abiertas</p>
-                </div>
-
+              {/* Naturaleza */}
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
+                <img src="/images/galeria/alrededor8.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Naturaleza" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Naturaleza</span>
               </div>
+
+              {/* Paseos */}
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
+                <img src="/images/galeria/exterior6.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Paseos" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Paseos</span>
+              </div>
+
+              {/* Entorno - Image Swapped to exterior2.jpg */}
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px]">
+                <img src="/images/galeria/alrededeor9.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Entorno" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-xs font-bold tracking-widest uppercase">Entorno</span>
+              </div>
+
             </div>
           </motion.div>
         </section>
@@ -165,23 +150,53 @@ function HomePage() {
         {/* === GLASS STRIP SECTION === */}
         <section className="py-20 px-4 max-w-6xl mx-auto -mt-10 pt-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: Dog, title: "Pet-Friendly" },
-              { icon: Utensils, title: "BBQ Area" },
-              { icon: Wifi, title: "High-Speed Wifi" },
-              { icon: Mountain, title: "Countryside Views" }
-            ].map((item, i) => (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                key={i}
-                className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl flex flex-col items-center text-center hover:bg-white/10 transition-colors group cursor-default"
-              >
-                <item.icon className="w-10 h-10 text-[#e5c988] mb-4 group-hover:text-white transition-colors" strokeWidth={1.5} />
-                <span className="font-serif text-lg tracking-wide text-white/90">{item.title}</span>
-              </motion.div>
-            ))}
+            {/* Pet-Friendly - With Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 * 0.1 }}
+              className="relative rounded-2xl overflow-hidden group cursor-default"
+            >
+              <img src="/images/galeria/pet-friendly.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Pet Friendly" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">Pet-Friendly</span>
+            </motion.div>
+
+            {/* Zona de Barbacoa - With Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 * 0.1 }}
+              className="relative rounded-2xl overflow-hidden group cursor-default"
+            >
+              <img src="/images/galeria/exterior.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Zona de Barbacoa" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">Zona de Barbacoa</span>
+            </motion.div>
+
+            {/* Wifi Alta Velocidad - With Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2 * 0.1 }}
+              className="relative rounded-2xl overflow-hidden group cursor-default"
+            >
+              <img src="/images/galeria/wifi-work.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Wifi" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">Wifi Alta Velocidad</span>
+            </motion.div>
+
+            {/* Vistas al Campo - Image Swapped to alrededeor9.jpg */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 3 * 0.1 }}
+              className="relative rounded-2xl overflow-hidden group cursor-default"
+            >
+              <img src="/images/galeria/alrededor4.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Vistas" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">Vistas al Campo</span>
+            </motion.div>
           </div>
         </section>
 

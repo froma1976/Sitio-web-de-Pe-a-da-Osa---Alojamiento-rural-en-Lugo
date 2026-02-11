@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
@@ -123,10 +123,10 @@ function GaleriaPage() {
   return (
     <>
       <Helmet>
-        <title>Galería - Peña da Osa | Recorrido Fotográfico</title>
+        <title>Galería - Pena da Osa | Recorrido Fotográfico</title>
         <meta
           name="description"
-          content="Explora la galería de fotos de Peña da Osa. Vea nuestras habitaciones, cocina, patio, zona de barbacoa, sala de cine y los impresionantes alrededores exteriores."
+          content="Explora la galería de fotos de Pena da Osa. Vea nuestras habitaciones, cocina, patio, zona de barbacoa, sala de cine y los impresionantes alrededores exteriores."
         />
       </Helmet>
 
