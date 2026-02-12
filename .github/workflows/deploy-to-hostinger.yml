@@ -4,11 +4,18 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
 
 jobs:
   deploy:
     name: Build and Deploy to Hostinger
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -35,3 +42,51 @@ jobs:
           local-dir: ./dist/
           server-dir: /public_html/
           dangerous-clean-slate: false
+
+      - name: Purge CDN cache (optional)
+        env:
+          PURGE_URL: ${{ secrets.HOSTINGER_CACHE_PURGE_URL }}
+          PURGE_TOKEN: ${{ secrets.HOSTINGER_CACHE_PURGE_TOKEN }}
+        run: |
+          if [ -z "$PURGE_URL" ]; then
+            echo "HOSTINGER_CACHE_PURGE_URL is not set. Skipping purge step."
+            exit 0
+          fi
+
+          if [ -n "$PURGE_TOKEN" ]; then
+            curl --fail --silent --show-error -X POST "$PURGE_URL" \
+              -H "Authorization: Bearer $PURGE_TOKEN"
+          else
+            curl --fail --silent --show-error -X POST "$PURGE_URL"
+          fi
+
+          echo "Cache purge request sent."
+
+      - name: Verify deployed JS asset is served correctly
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          TARGET_URL="${SITE_URL:-https://penadaosa.com}"
+          echo "Verifying deploy at $TARGET_URL"
+
+          HTML=$(curl --fail --silent --show-error "$TARGET_URL/?v=${GITHUB_SHA}")
+          ASSET_PATH=$(printf '%s' "$HTML" | grep -oE '/assets/index-[^"[:space:]]+\.js' | head -n 1)
+
+          if [ -z "$ASSET_PATH" ]; then
+            echo "Could not find hashed JS asset in HTML."
+            exit 1
+          fi
+
+          CONTENT_TYPE=$(curl --fail --silent --show-error --head "$TARGET_URL$ASSET_PATH" | tr -d '\r' | awk -F': ' 'tolower($1)=="content-type" {print tolower($2)}')
+          echo "Asset: $ASSET_PATH"
+          echo "Content-Type: $CONTENT_TYPE"
+
+          case "$CONTENT_TYPE" in
+            application/javascript*|text/javascript*)
+              echo "Deploy verification passed."
+              ;;
+            *)
+              echo "Deploy verification failed: asset is not being served as JavaScript."
+              exit 1
+              ;;
+          esac
