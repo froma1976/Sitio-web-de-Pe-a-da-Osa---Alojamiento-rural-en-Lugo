@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Mountain, Utensils, ArrowRight, Dog, Wifi, ChefHat, Waves } from "lucide-react"; // ChefHat & Waves for new icons
 import { Button } from "@/components/ui/button";
+import StayPlanner from "@/components/StayPlanner";
 
 function HomePage() {
   const containerRef = useRef(null);
@@ -117,9 +118,13 @@ function HomePage() {
         </section>
 
 
+
+        {/* === STAY PLANNER (AI Concierge) === */}
+        <StayPlanner />
+
         {/* === BENTO BOX SECTION (Terracotta) === */}
         {/* Floating overlap - negative margin to pull it up into Hero */}
-        <section className="relative z-20 -mt-32 md:-mt-40 px-4 max-w-[1400px] mx-auto mb-48">
+        <section className="relative z-20 -mt-10 px-4 max-w-[1400px] mx-auto mb-48">
           <motion.div
             initial="hidden"
             whileInView="visible"

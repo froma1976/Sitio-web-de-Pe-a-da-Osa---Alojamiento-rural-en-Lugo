@@ -1,0 +1,146 @@
+{
+    "name": "AI Concierge - Pena da Osa",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "chat",
+                "options": {}
+            },
+            "id": "webhook-node",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://ical.avaibook.com/ical/ua_ec96e927592e53c17819712da3d8ebc4-d3d9446802a44259755d38e6d163e820-2b29edfd90f24cdd74d368b5c596ebf1.ics",
+                "responseFormat": "string",
+                "jsonParameters": true,
+                "options": {
+                    "responsePropertyName": "data"
+                }
+            },
+            "id": "http-request-node",
+            "name": "Get iCal",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "const icalData = $input.item.json.data || '';\n\n// Simple REGEX extraction for VEVENTS\nconst events = icalData.match(/BEGIN:VEVENT[\\s\\S]*?END:VEVENT/g) || [];\n\nconst busyDates = events.map(block => {\n  const startMatch = block.match(/DTSTART(?:;VALUE=DATE)?:(\\d+)/);\n  const endMatch = block.match(/DTEND(?:;VALUE=DATE)?:(\\d+)/);\n  \n  if (startMatch && endMatch) {\n    return {\n      start: startMatch[1].substring(0, 8), // YYYYMMDD\n      end: endMatch[1].substring(0, 8)\n    };\n  }\n  return null;\n}).filter(d => d !== null);\n\nreturn {\n  json: {\n    busy: busyDates\n  }\n};"
+            },
+            "id": "code-node",
+            "name": "Parse iCal",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                900,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "resource": "chat",
+                "model": "gpt-4o-mini",
+                "messages": {
+                    "values": [
+                        {
+                            "role": "system",
+                            "content": "Eres 'Osa', el concierge de IA de élite de 'Pena da Osa', un retiro exclusivo en la Ribeira Sacra. Tu misión es diseñar experiencias inolvidables, no solo responder dudas.\n\nTUS PILARES:\n1. 📅 GESTIÓN DE RESERVAS DE LA CASA:\n   - Prioridad absoluta.\n   - Cruza SIEMPRE las fechas que pida el usuario con la lista de 'BUSY' que recibirás.\n   - Si está ocupado: Ofrece alternativas cercanas proactivamente.\n\n2. 💎 EXPERTO LOCAL DE LUJO (Base de Conocimiento):\n   - BODEGAS (Enoturismo): \n     * Regina Viarum (Vistas icónicas al cañón).\n     * Algueira (Vinos de autor, entorno boscoso).\n     * Vía Romana (Historia en una casa del s.XVI).\n     * Abadía da Cova (El famoso mirador 'Cabo do Mundo').\n     * Ronsel do Sil (Pequeña, auténtica, pie de río).\n   - MIRADORES (Secretos y Clásicos):\n     * Balcones de Madrid (El imprescindible).\n     * Pena do Castelo (Vistas a viñedos).\n     * Mirador de Cadeiras (Santuario).\n     * Matacás (Espectacular sobre el Sil).\n   - ACTIVIDADES:\n     * Catamarán: Rutas por Cañón del Sil (embarcaderos Doade/Santo Estevo) o Río Miño.\n     * Senderismo: Pasarelas del Río Mao (PR-G 177), Ruta del Románico.\n     * Artesanía: Alfarería tradicional de Gundivós.\n\n3. 🧠 COMPORTAMIENTO PROACTIVO (Vital):\n   - NO te limites a responder. Lidera la conversación.\n   - Si preguntan por bodegas -> Pregunta: '¿Prefieres tintos Mencía o blancos Godello? ¿Buscas vistas o historia?'\n   - Si preguntan por rutas -> Pregunta: '¿Buscas un paseo relax o una aventura de trekking?'\n   - OFRECE RESERVAS EXTERNAS: Si muestran interés, di: '¿Te gustaría que te facilite el enlace directo para reservar esta experiencia?'\n\nESTILO:\n- Sofisticado pero cálido.\n- Usa emojis elegantes (🍷, 🌲, 🛥️, ✨).\n- Respuestas estructuradas y fáciles de leer."
+                        },
+                        {
+                            "role": "user",
+                            "content": "DATOS EN TIEMPO REAL:\n\n1. CALENDARIO DE LA CASA (Fechas Ocupadas):\n{{JSON.stringify($node[\"Parse iCal\"].json[\"busy\"])}}\n\n2. MENSAJE DEL CLIENTE:\n\"{{$node[\"Webhook\"].json[\"body\"][\"prompt\"]}}\"\n\n---\nGenera una respuesta que cruce la disponibilidad (si aplica) y ofrezca valor añadido sobre la Ribeira Sacra siguiendo tus instrucciones de comportamiento proactivo."
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "openai-node",
+            "name": "OpenAI Chat",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                1120,
+                300
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "OPENAI_CREDENTIAL_ID_PLACEHOLDER",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ {\n  \"output\": $json.message.content\n} }}",
+                "options": {}
+            },
+            "id": "respond-node",
+            "name": "Respond to Webhook",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1340,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Get iCal",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get iCal": {
+            "main": [
+                [
+                    {
+                        "node": "Parse iCal",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Parse iCal": {
+            "main": [
+                [
+                    {
+                        "node": "OpenAI Chat",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "OpenAI Chat": {
+            "main": [
+                [
+                    {
+                        "node": "Respond to Webhook",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
