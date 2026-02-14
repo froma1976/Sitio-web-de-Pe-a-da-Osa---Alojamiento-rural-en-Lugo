@@ -1,14 +1,14 @@
-﻿
 import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { Film, Wifi, UtensilsCrossed, Car, PawPrint, BedDouble, Bath, Flame } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 function LaCasaPage() {
   const floors = [
     {
       title: "Planta Baja",
-      image: "https://images.unsplash.com/photo-1690201857428-ec796765818d",
+      image: "/images/galeria/exterior11.jpg",
       alt: "Patio tradicional gallego con horno de piedra antiguo",
       description: "El corazón de la casa tradicional gallega",
       features: [
@@ -20,7 +20,7 @@ function LaCasaPage() {
     },
     {
       title: "Planta Primera",
-      image: "https://images.unsplash.com/photo-1560562125-ab512e4d9d29",
+      image: "/images/galeria/cocina1.jpg",
       alt: "Cocina moderna equipada con terraza amplia",
       description: "El espacio principal de convivencia",
       features: [
@@ -33,7 +33,7 @@ function LaCasaPage() {
     },
     {
       title: "Planta Superior",
-      image: "https://images.unsplash.com/photo-1589761633922-d13635869c7b",
+      image: "/images/galeria/salon.jpg",
       alt: "Salón de cine exclusivo con habitaciones dobles",
       description: "El refugio privado y exclusivo",
       features: [
@@ -67,27 +67,14 @@ function LaCasaPage() {
         />
       </Helmet>
 
-      {/* Header Section */}
-      <section className="bg-gradient-to-br from-amber-800 to-amber-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-              La Casa
-            </h1>
-            <p className="text-xl sm:text-2xl text-amber-100 max-w-3xl mx-auto">
-              Una casa tradicional gallega de tres plantas, completamente renovada para ofrecerte
-              el máximo confort con un toque rústico y auténtico.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        title="La Casa"
+        subtitle="Una casa tradicional gallega de tres plantas, completamente renovada para ofrecerte el máximo confort con un toque rústico y auténtico."
+        backgroundImage="/images/galeria/exterior10.jpg"
+      />
 
       {/* Floors Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {floors.map((floor, index) => (
             <motion.div
@@ -96,11 +83,11 @@ function LaCasaPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`mb-20 last:mb-0 ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+              className={`mb-24 last:mb-0 ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}
             >
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 {/* Image */}
-                <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                <div className={`relative overflow-hidden rounded-3xl shadow-2xl ${index % 2 === 1 ? "md:order-2" : ""}`}>
                   <img
                     src={floor.image}
                     alt={floor.alt}
@@ -109,16 +96,16 @@ function LaCasaPage() {
                 </div>
 
                 {/* Content */}
-                <div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-amber-900 mb-4">
+                <div className={index % 2 === 1 ? "md:order-1" : ""}>
+                  <h2 className="text-3xl sm:text-4xl font-serif text-[#1a1e23] mb-4">
                     {floor.title}
                   </h2>
-                  <p className="text-lg text-gray-600 mb-6 italic">{floor.description}</p>
+                  <p className="text-lg text-stone-500 mb-6 italic">{floor.description}</p>
                   <ul className="space-y-3">
                     {floor.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start">
-                        <span className="text-amber-600 mr-3 mt-1">✓</span>
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-[#d4765d] mr-3 mt-1">✓</span>
+                        <span className="text-stone-600">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -130,7 +117,7 @@ function LaCasaPage() {
       </section>
 
       {/* Highlight Section */}
-      <section className="py-16 bg-amber-50">
+      <section className="py-16 bg-[#f5f3ef]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -138,8 +125,8 @@ function LaCasaPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-amber-600 text-white rounded-2xl p-8 shadow-xl">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+            <div className="bg-[#d4765d] text-white rounded-3xl p-8 shadow-xl">
+              <h3 className="text-2xl sm:text-3xl font-serif font-bold mb-4">
                 Máxima Privacidad y Confort
               </h3>
               <p className="text-lg sm:text-xl">
@@ -152,7 +139,7 @@ function LaCasaPage() {
       </section>
 
       {/* Amenities Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -161,29 +148,29 @@ function LaCasaPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-amber-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-serif text-[#1a1e23] mb-4">
               Servicios y Comodidades
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-stone-600 max-w-3xl mx-auto">
               Todo lo que necesitas para una estancia perfecta
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {amenities.map((amenity, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="bg-amber-50 p-6 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-[#f5f3ef] p-6 rounded-2xl text-center hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
-                <div className="bg-amber-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#d4765d] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <amenity.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-amber-900 mb-2">{amenity.title}</h3>
-                <p className="text-sm text-gray-600">{amenity.description}</p>
+                <h3 className="text-lg font-bold text-[#1a1e23] mb-2">{amenity.title}</h3>
+                <p className="text-sm text-stone-600">{amenity.description}</p>
               </motion.div>
             ))}
           </div>

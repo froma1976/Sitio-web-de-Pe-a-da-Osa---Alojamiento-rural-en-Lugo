@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
@@ -88,7 +88,7 @@ function GaleriaPage() {
         "/images/galeria/alrededor5.jpg",
         "/images/galeria/alrededor7.jpg",
         "/images/galeria/alrededor8.jpg",
-        "/images/galeria/alrededeor9.jpg",
+        "/images/galeria/alrededor8.jpg",
         "/images/galeria/alrededor19.jpg",
         "/images/galeria/alrededor20.jpg"
       ]

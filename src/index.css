@@ -96,6 +96,23 @@
 		font-family: 'Fraunces', serif; /* Display serif with character */
 		@apply tracking-tight;
 	}
+
+	/* Global Focus States for Accessibility */
+	*:focus-visible {
+		outline: 2px solid #d4765d;
+		outline-offset: 2px;
+	}
+
+	/* Smooth scrolling */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Custom selection color */
+	::selection {
+		background-color: #d4765d;
+		color: white;
+	}
 }
 
 @layer components {
