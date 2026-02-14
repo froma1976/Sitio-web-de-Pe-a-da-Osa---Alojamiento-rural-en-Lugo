@@ -92,6 +92,7 @@ export default function StayPlanner() {
         if (!prompt.trim()) return;
 
         const currentPrompt = prompt;
+        const historyForWebhook = [...messages, { role: 'user', content: currentPrompt }];
         setPrompt('');
         setLoading(true);
 
@@ -120,14 +121,32 @@ export default function StayPlanner() {
                 body: JSON.stringify({
                     prompt: currentPrompt,
                     userName: userName,
-                    sessionId: sessionId
+                    sessionId: sessionId,
+                    history: historyForWebhook
                 }),
             });
 
             if (!res.ok) throw new Error(`Error: ${res.status}`);
 
             const data = await res.json();
-            const aiText = data.output || data.text || "Lo siento, no entendí eso.";
+            console.log('📦 Webhook Data:', data); // Debugging
+
+            let aiText = null;
+
+            // Helper to extract text from an object
+            const extractText = (obj) => {
+                return obj?.output || obj?.text || obj?.message?.content || null;
+            };
+
+            // Handle Array response (common in n8n)
+            if (Array.isArray(data) && data.length > 0) {
+                aiText = extractText(data[0]);
+            } else {
+                aiText = extractText(data);
+            }
+
+            // Fallback
+            aiText = aiText || "Lo siento, no entendí eso.";
 
             setMessages(prev => [...prev, { role: 'assistant', content: aiText }]);
 
@@ -186,8 +205,8 @@ export default function StayPlanner() {
                                     type="submit"
                                     disabled={!tempName.trim()}
                                     className={`w-full py-3 px-6 rounded-full font-medium transition-all flex items-center justify-center gap-2 ${!tempName.trim()
-                                            ? 'bg-stone-100 text-stone-300 cursor-not-allowed'
-                                            : 'bg-stone-900 text-white hover:bg-stone-800 shadow-lg cursor-pointer'
+                                        ? 'bg-stone-100 text-stone-300 cursor-not-allowed'
+                                        : 'bg-stone-900 text-white hover:bg-stone-800 shadow-lg cursor-pointer'
                                         }`}
                                 >
                                     <span>Comenzar</span>
@@ -306,8 +325,8 @@ export default function StayPlanner() {
                                             type="submit"
                                             disabled={loading || !prompt.trim()}
                                             className={`p-3 rounded-xl transition-all transform active:scale-95 flex-shrink-0 ${loading || !prompt.trim()
-                                                    ? 'bg-stone-100 text-stone-300 cursor-not-allowed'
-                                                    : 'bg-stone-900 text-white hover:bg-stone-800 shadow-md cursor-pointer'
+                                                ? 'bg-stone-100 text-stone-300 cursor-not-allowed'
+                                                : 'bg-stone-900 text-white hover:bg-stone-800 shadow-md cursor-pointer'
                                                 }`}
                                         >
                                             <Send className="w-5 h-5" />

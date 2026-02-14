@@ -1,0 +1,121 @@
+const icalData = $input.item.json.data || '';
+
+// Unfold RFC5545 lines
+const rawLines = icalData.replace(/\r\n/g, '\n').split('\n');
+const lines = [];
+for (const line of rawLines) {
+  if (/^[ \t]/.test(line) && lines.length) {
+    lines[lines.length - 1] += line.trimStart();
+  } else {
+    lines.push(line.trim());
+  }
+}
+
+const parseDate = (val) => {
+  if (!val) return null;
+  const m = String(val).match(/(\d{4})(\d{2})(\d{2})/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+};
+
+const addDays = (iso, n) => {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+};
+
+// Parse VEVENTs
+const events = [];
+let inEvent = false;
+let start = null;
+let end = null;
+let summary = '';
+
+for (const line of lines) {
+  if (line === 'BEGIN:VEVENT') {
+    inEvent = true;
+    start = null;
+    end = null;
+    summary = '';
+    continue;
+  }
+
+  if (line === 'END:VEVENT') {
+    if (inEvent && start) {
+      // If DTEND missing or invalid, force 1 day block
+      if (!end || end <= start) end = addDays(start, 1);
+
+      // IMPORTANT: all events are blocking (including NOT AVAILABLE)
+      events.push({
+        start,
+        end,
+        summary: summary || 'BLOCKED',
+      });
+    }
+    inEvent = false;
+    continue;
+  }
+
+  if (!inEvent) continue;
+
+  if (line.startsWith('DTSTART')) {
+    const idx = line.indexOf(':');
+    start = idx >= 0 ? parseDate(line.slice(idx + 1)) : null;
+  } else if (line.startsWith('DTEND')) {
+    const idx = line.indexOf(':');
+    end = idx >= 0 ? parseDate(line.slice(idx + 1)) : null;
+  } else if (line.startsWith('SUMMARY')) {
+    const idx = line.indexOf(':');
+    summary = idx >= 0 ? line.slice(idx + 1).trim() : '';
+  }
+}
+
+// Sort events
+events.sort((a, b) => a.start.localeCompare(b.start));
+
+// Build exact occupied days [start, end)
+const today = new Date().toISOString().slice(0, 10);
+const occupiedSet = new Set();
+
+for (const e of events) {
+  // skip old events that ended in the past
+  if (e.end <= today) continue;
+
+  let day = e.start < today ? today : e.start;
+  while (day < e.end) {
+    occupiedSet.add(day);
+    day = addDays(day, 1);
+  }
+}
+
+const occupied_days = Array.from(occupiedSet).sort();
+
+// Merge to ranges
+const busy_ranges = [];
+for (const day of occupied_days) {
+  if (!busy_ranges.length) {
+    busy_ranges.push({ from: day, to: day });
+    continue;
+  }
+  const last = busy_ranges[busy_ranges.length - 1];
+  const next = addDays(last.to, 1);
+  if (day === next) last.to = day;
+  else busy_ranges.push({ from: day, to: day });
+}
+
+const readable_busy_list = busy_ranges
+  .map((r) => `- DEL ${r.from} AL ${r.to}`)
+  .join('\n');
+
+return {
+  json: {
+    occupied_days,
+    busy_ranges,
+    readable_busy_list,
+    total_events: events.length,
+    context: {
+      today,
+      year: new Date().getUTCFullYear(),
+      month: new Date().toLocaleString('es-ES', { month: 'long', timeZone: 'UTC' })
+    }
+  }
+};

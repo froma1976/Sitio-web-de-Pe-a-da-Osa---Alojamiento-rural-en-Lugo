@@ -1,0 +1,125 @@
+PARSE ICAL - CAMPO jsCode
+
+const icalData = $input.item.json.data || '';
+
+// Normalize line endings and unfolded lines (RFC5545: folded lines start with space or tab)
+const normalizedData = icalData
+  .replace(/\r\n/g, '\n')
+  .replace(/\n[ \t]/g, '');
+
+const eventBlocks = normalizedData.match(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g) || [];
+const events = [];
+
+const parseIcalDate = (raw) => {
+  if (!raw) return null;
+  const m = String(raw).match(/^(\d{4})(\d{2})(\d{2})/);
+  if (!m) return null;
+  return m[1] + '-' + m[2] + '-' + m[3];
+};
+
+const addDays = (isoDate, days) => {
+  const d = new Date(isoDate + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+};
+
+for (const block of eventBlocks) {
+  const extract = (key) => {
+    const regex = new RegExp('^' + key + '(?:;.*?)?:(.*?)$', 'm');
+    const match = block.match(regex);
+    return match ? match[1].trim() : null;
+  };
+
+  const start = parseIcalDate(extract('DTSTART'));
+  const end = parseIcalDate(extract('DTEND'));
+
+  if (start && end && start < end) {
+    events.push({ start, end });
+  }
+}
+
+const now = new Date();
+const today = now.toISOString().slice(0, 10);
+const currentYear = now.getUTCFullYear();
+const currentMonthName = now.toLocaleString('es-ES', { month: 'long', timeZone: 'UTC' });
+
+// DTEND in iCal is usually checkout day (exclusive)
+const futureEvents = events
+  .filter((e) => e.end > today)
+  .sort((a, b) => a.start.localeCompare(b.start));
+
+// Expand occupied dates as exact day list using [start, end)
+const occupiedDaySet = new Set();
+for (const e of futureEvents) {
+  let day = e.start;
+  while (day < e.end) {
+    if (day >= today) occupiedDaySet.add(day);
+    day = addDays(day, 1);
+  }
+}
+
+const occupiedDays = Array.from(occupiedDaySet).sort();
+
+// Merge consecutive occupied days into compact ranges
+const busyRanges = [];
+for (const day of occupiedDays) {
+  if (!busyRanges.length) {
+    busyRanges.push({ from: day, to: day });
+    continue;
+  }
+
+  const last = busyRanges[busyRanges.length - 1];
+  const nextExpected = addDays(last.to, 1);
+
+  if (day === nextExpected) {
+    last.to = day;
+  } else {
+    busyRanges.push({ from: day, to: day });
+  }
+}
+
+const readableBusyList = busyRanges.map((r) => '- DEL ' + r.from + ' AL ' + r.to).join('\n');
+
+return {
+  json: {
+    busy_dates: futureEvents,
+    occupied_days: occupiedDays,
+    busy_ranges: busyRanges,
+    readable_busy_list: readableBusyList,
+    context: {
+      today,
+      year: currentYear,
+      month: currentMonthName
+    }
+  }
+};
+
+
+OPENAI CHAT - MENSAJE SYSTEM (content)
+
+Eres Osa, concierge de 'Pena da Osa' (Ribeira Sacra).
+
+INFORMACIÓN TEMPORAL:
+- HOY: {{ $node["Parse iCal"].json["context"]["today"] }} (Año: {{ $node["Parse iCal"].json["context"]["year"] }})
+- MES ACTUAL: {{ $node["Parse iCal"].json["context"]["month"] }}
+
+FUENTE DE VERDAD DE OCUPACIÓN:
+- DÍAS OCUPADOS (uno por fecha):
+{{ JSON.stringify($node["Parse iCal"].json["occupied_days"]) }}
+- RANGOS OCUPADOS (resumen):
+{{ JSON.stringify($node["Parse iCal"].json["busy_ranges"]) }}
+
+INSTRUCCIONES DE DISPONIBILIDAD:
+1. Si una fecha está en 'occupied_days', está OCUPADA.
+2. Si no está en 'occupied_days', está LIBRE.
+3. No inventes fechas ni omitas ocupaciones.
+4. Si el usuario pide 'todas las fechas ocupadas', enumera TODAS las fechas de 'occupied_days'.
+5. Si el usuario pide disponibilidad por mes/finde/rango, responde con días o rangos concretos.
+
+ACTITUD:
+- Amable, premium y proactiva.
+
+
+OPENAI CHAT - MENSAJE USER (content)
+
+={{ (() => { const body = $node["Webhook"].json["body"] || {}; const history = Array.isArray(body.history) ? body.history : []; if (history.length > 0) { return history.map((m) => `${m.role === "assistant" ? "Osa" : (body.userName || "Usuario")}: ${String(m.content || "").trim()}`).join("\n\n"); } return body.prompt || ""; })() }}
