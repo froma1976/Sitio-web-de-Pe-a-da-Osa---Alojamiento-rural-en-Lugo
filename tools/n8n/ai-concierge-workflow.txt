@@ -1,0 +1,90 @@
+{
+    "name": "AI Concierge - Pena da Osa",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "chat",
+                "responseMode": "responseNode",
+                "options": {}
+            },
+            "id": "webhook-node",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [460, 300]
+        },
+        {
+            "parameters": {
+                "url": "https://ical.avaibook.com/ical/ua_ec96e927592e53c17819712da3d8ebc4-d3d9446802a44259755d38e6d163e820-2b29edfd90f24cdd74d368b5c596ebf1.ics",
+                "responseFormat": "string",
+                "jsonParameters": true,
+                "options": { "responsePropertyName": "data" }
+            },
+            "id": "http-request-node",
+            "name": "Get iCal",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [680, 300]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "const icalData = $input.item.json.data || '';\n\n// Unfold RFC5545 lines\nconst rawLines = icalData.replace(/\\r\\n/g, '\\n').split('\\n');\nconst lines = [];\nfor (const line of rawLines) {\n  if (/^[ \\t]/.test(line) && lines.length) {\n    lines[lines.length - 1] += line.trimStart();\n  } else {\n    lines.push(line.trim());\n  }\n}\n\nconst parseDate = (val) => {\n  if (!val) return null;\n  const m = String(val).match(/(\\d{4})(\\d{2})(\\d{2})/);\n  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;\n};\n\nconst addDays = (iso, n) => {\n  const d = new Date(`${iso}T00:00:00Z`);\n  d.setUTCDate(d.getUTCDate() + n);\n  return d.toISOString().slice(0, 10);\n};\n\nconst isNotAvailableSummary = (s) => /NOT\\s*AVAILABLE/i.test(String(s || ''));\n\nconst events = [];\nlet inEvent = false;\nlet start = null;\nlet end = null;\nlet summary = '';\n\nfor (const line of lines) {\n  if (line === 'BEGIN:VEVENT') {\n    inEvent = true;\n    start = null;\n    end = null;\n    summary = '';\n    continue;\n  }\n\n  if (line === 'END:VEVENT') {\n    if (inEvent && start) {\n      if (!end || end <= start) end = addDays(start, 1);\n      const notAvailable = isNotAvailableSummary(summary);\n      events.push({\n        start,\n        end,\n        summary: summary || 'BLOCKED',\n        blockCheckoutDay: notAvailable,\n      });\n    }\n    inEvent = false;\n    continue;\n  }\n\n  if (!inEvent) continue;\n\n  if (line.startsWith('DTSTART')) {\n    const idx = line.indexOf(':');\n    start = idx >= 0 ? parseDate(line.slice(idx + 1)) : null;\n  } else if (line.startsWith('DTEND')) {\n    const idx = line.indexOf(':');\n    end = idx >= 0 ? parseDate(line.slice(idx + 1)) : null;\n  } else if (line.startsWith('SUMMARY')) {\n    const idx = line.indexOf(':');\n    summary = idx >= 0 ? line.slice(idx + 1).trim() : '';\n  }\n}\n\nevents.sort((a, b) => a.start.localeCompare(b.start));\n\nconst today = new Date().toISOString().slice(0, 10);\nconst occupiedSet = new Set();\n\nfor (const e of events) {\n  if (e.end <= today && !e.blockCheckoutDay) continue;\n\n  let day = e.start < today ? today : e.start;\n  while (day < e.end) {\n    occupiedSet.add(day);\n    day = addDays(day, 1);\n  }\n\n  if (e.blockCheckoutDay && e.end >= today) {\n    occupiedSet.add(e.end);\n  }\n}\n\nconst occupied_days = Array.from(occupiedSet).sort();\n\nconst busy_ranges = [];\nfor (const day of occupied_days) {\n  if (!busy_ranges.length) {\n    busy_ranges.push({ from: day, to: day });\n    continue;\n  }\n  const last = busy_ranges[busy_ranges.length - 1];\n  const next = addDays(last.to, 1);\n  if (day === next) last.to = day;\n  else busy_ranges.push({ from: day, to: day });\n}\n\nconst readable_busy_list = busy_ranges\n  .map((r) => `- DEL ${r.from} AL ${r.to}`)\n  .join('\\n');\n\nconst not_available_days = occupied_days.filter((d) =>\n  events.some((e) => e.blockCheckoutDay && e.start <= d && d <= e.end)\n);\n\nreturn {\n  json: {\n    occupied_days,\n    busy_ranges,\n    readable_busy_list,\n    not_available_days,\n    total_events: events.length,\n    context: {\n      today,\n      year: new Date().getUTCFullYear(),\n      month: new Date().toLocaleString('es-ES', { month: 'long', timeZone: 'UTC' })\n    }\n  }\n};\n"
+            },
+            "id": "code-node",
+            "name": "Parse iCal",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [900, 300]
+        },
+        {
+            "parameters": {
+                "resource": "chat",
+                "model": "gpt-4o",
+                "messages": {
+                    "values": [
+                        {
+                            "role": "system",
+                            "content": "Eres Osa, concierge de 'Pena da Osa' (Ribeira Sacra).\n\nINFORMACIÓN TEMPORAL:\n- HOY: {{ $node[\"Parse iCal\"].json[\"context\"][\"today\"] }} (Año: {{ $node[\"Parse iCal\"].json[\"context\"][\"year\"] }})\n- MES ACTUAL: {{ $node[\"Parse iCal\"].json[\"context\"][\"month\"] }}\n\nFUENTE DE VERDAD DE OCUPACIÓN:\n- DÍAS OCUPADOS (uno por fecha):\n{{ JSON.stringify($node[\"Parse iCal\"].json[\"occupied_days\"]) }}\n- RANGOS OCUPADOS (resumen):\n{{ JSON.stringify($node[\"Parse iCal\"].json[\"busy_ranges\"]) }}\n\nINSTRUCCIONES DE DISPONIBILIDAD:\n1. Si una fecha está en 'occupied_days', está OCUPADA.\n2. Si no está en 'occupied_days', está LIBRE.\n3. No inventes fechas ni omitas ocupaciones.\n4. Si el usuario pide 'todas las fechas ocupadas', enumera TODAS las fechas de 'occupied_days'.\n5. Si el usuario pide disponibilidad por mes/finde/rango, responde con días o rangos concretos.\n\nACTITUD:\n- Amable, premium y proactiva."
+                        },
+                        {
+                            "role": "user",
+                            "content": "={{ (() => { const body = $node[\"Webhook\"].json[\"body\"] || {}; const history = Array.isArray(body.history) ? body.history : []; if (history.length > 0) { return history.map((m) => `${m.role === \"assistant\" ? \"Osa\" : (body.userName || \"Usuario\")}: ${String(m.content || \"\").trim()}`).join(\"\\n\\n\"); } return body.prompt || \"\"; })() }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "openai-node",
+            "name": "OpenAI Chat",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [1120, 300],
+            "credentials": {
+                "openAiApi": {
+                    "id": "OPENAI_CREDENTIAL_ID_PLACEHOLDER",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ {\"output\": $json.message.content} }}",
+                "options": {}
+            },
+            "id": "respond-node",
+            "name": "Respond to Webhook",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [1340, 300]
+        }
+    ],
+    "connections": {
+        "Webhook": { "main": [[{ "node": "Get iCal", "type": "main", "index": 0 }]] },
+        "Get iCal": { "main": [[{ "node": "Parse iCal", "type": "main", "index": 0 }]] },
+        "Parse iCal": { "main": [[{ "node": "OpenAI Chat", "type": "main", "index": 0 }]] },
+        "OpenAI Chat": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] }
+    }
+}

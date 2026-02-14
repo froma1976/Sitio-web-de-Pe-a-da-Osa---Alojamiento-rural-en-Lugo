@@ -1,0 +1,40 @@
+PP (System) - Osa Concierge
+
+{{ 
+(() => { 
+  const body = $node["Webhook"].json["body"] || {}; 
+  const history = Array.isArray(body.history) ? body.history : []; 
+  
+  // Si hay historial, formateamos la conversación completa
+  if (history.length > 0) { 
+    return "HISTORIAL DE CONVERSACIÓN:\n" + history.map(m => { 
+      const speaker = m.role === 'assistant' ? 'Osa' : (body.userName || 'Cliente'); 
+      return `${speaker}: ${String(m.content || "").trim()}`; 
+    }).join("\n\n") + "\n\n---\nINSTRUCCIÓN: Responde al último mensaje del Cliente teniendo en cuenta lo anterior."; 
+  } 
+  
+  // Fallback si es el primer mensaje
+  return body.prompt || ""; 
+})() 
+}}
+
+
+Prompt User (Expression)
+
+={{ (() => {
+  const body = $node["Webhook"].json["body"] || {};
+  const history = Array.isArray(body.history) ? body.history : [];
+  if (history.length > 0) {
+    return history
+      .map((m) => `${m.role === "assistant" ? "Osa" : (body.userName || "Usuario")}: ${String(m.content || "").trim()}`)
+      .join("\n\n");
+  }
+  return String(body.prompt || "").trim();
+})() }}
+
+
+Salida del Respond to Webhook
+
+={{ {
+  "output": $json.message.content
+} }}
