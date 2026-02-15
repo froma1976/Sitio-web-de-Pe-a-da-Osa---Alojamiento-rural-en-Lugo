@@ -27,70 +27,70 @@ function GaleriaPage() {
     {
       name: "Salón",
       images: [
-        "/images/galeria/salon.jpg",
-        "/images/galeria/salon1.jpg",
-        "/images/galeria/salon3.jpg",
-        "/images/galeria/sala.jpg"
+        "/images/galeria/webp/salon.webp",
+        "/images/galeria/webp/salon1.webp",
+        "/images/galeria/webp/salon3.webp",
+        "/images/galeria/webp/sala.webp"
       ]
     },
     {
       name: "Habitaciones",
       images: [
-        "/images/galeria/habitacion1.jpg",
-        "/images/galeria/habitacion2.jpg",
-        "/images/galeria/habitacion3.jpg",
-        "/images/galeria/habitacion4.jpg",
-        "/images/galeria/habitacion5.jpg",
-        "/images/galeria/habitacion6.jpg"
+        "/images/galeria/webp/habitacion1.webp",
+        "/images/galeria/webp/habitacion2.webp",
+        "/images/galeria/webp/habitacion3.webp",
+        "/images/galeria/webp/habitacion4.webp",
+        "/images/galeria/webp/habitacion5.webp",
+        "/images/galeria/webp/habitacion6.webp"
       ]
     },
     {
       name: "Cocina",
       images: [
-        "/images/galeria/cocina1.jpg",
-        "/images/galeria/cocina2.jpg",
-        "/images/galeria/cocina3.jpg"
+        "/images/galeria/webp/cocina1.webp",
+        "/images/galeria/webp/cocina2.webp",
+        "/images/galeria/webp/cocina3.webp"
       ]
     },
     {
       name: "Patio",
       images: [
-        "/images/galeria/exterior3.jpg",
-        "/images/galeria/exterior.jpg",
-        "/images/galeria/exterior11.jpg",
-        "/images/galeria/exterior14.jpg",
-        "/images/galeria/exterioir15.jpg"
+        "/images/galeria/webp/exterior3.webp",
+        "/images/galeria/webp/exterior.webp",
+        "/images/galeria/webp/exterior11.webp",
+        "/images/galeria/webp/exterior14.webp",
+        "/images/galeria/webp/exterioir15.webp"
       ]
     },
     {
       name: "Terraza",
       images: [
-        "/images/galeria/exterior8.jpg"
+        "/images/galeria/webp/exterior8.webp"
       ]
     },
     {
       name: "Exterior y Fachada",
       images: [
-        "/images/galeria/exterior12.jpg",
-        "/images/galeria/exterior13.jpg",
-        "/images/galeria/exterior5.jpg",
-        "/images/galeria/exterior6.jpg",
-        "/images/galeria/exterior18.jpg"
+        "/images/galeria/webp/exterior12.webp",
+        "/images/galeria/webp/exterior13.webp",
+        "/images/galeria/webp/exterior5.webp",
+        "/images/galeria/webp/exterior6.webp",
+        "/images/galeria/webp/exterior18.webp"
       ]
     },
     {
       name: "Alrededores",
       images: [
-        "/images/galeria/alrededor.jpg",
-        "/images/galeria/alrededor1.jpg",
-        "/images/galeria/alrededor3.jpg",
-        "/images/galeria/alrededor4.jpg",
-        "/images/galeria/alrededor5.jpg",
-        "/images/galeria/alrededor7.jpg",
-        "/images/galeria/alrededor8.jpg",
-        "/images/galeria/alrededor8.jpg",
-        "/images/galeria/alrededor19.jpg",
-        "/images/galeria/alrededor20.jpg"
+        "/images/galeria/webp/alrededor.webp",
+        "/images/galeria/webp/alrededor1.webp",
+        "/images/galeria/webp/alrededor3.webp",
+        "/images/galeria/webp/alrededor4.webp",
+        "/images/galeria/webp/alrededor5.webp",
+        "/images/galeria/webp/alrededor7.webp",
+        "/images/galeria/webp/alrededor8.webp",
+        "/images/galeria/webp/alrededor8.webp",
+        "/images/galeria/webp/alrededor19.webp",
+        "/images/galeria/webp/alrededor20.webp"
       ]
     }
   ];
@@ -133,17 +133,17 @@ function GaleriaPage() {
         <meta property="og:url" content="https://penadaosa.com/galeria" />
         <meta property="og:title" content="Galería - Pena da Osa | Recorrido Fotográfico" />
         <meta property="og:description" content="Explora cada rincón de Pena da Osa a través de nuestra galería fotográfica." />
-        <meta property="og:image" content="https://penadaosa.com/images/galeria/alrededor5.jpg" />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/alrededor5.webp" />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="Galería - Pena da Osa | Recorrido Fotográfico" />
-        <meta property="twitter:image" content="https://penadaosa.com/images/galeria/alrededor5.jpg" />
+        <meta property="twitter:image" content="https://penadaosa.com/images/galeria/webp/alrededor5.webp" />
       </Helmet>
 
       <PageHero
         eyebrow="Galería"
         title="Recorrido fotográfico"
         subtitle="Interior, exterior y alrededores. Un vistazo fiel para que sepas exactamente lo que vas a vivir."
-        backgroundImage="/images/galeria/alrededor5.jpg"
+        backgroundImage="/images/galeria/webp/alrededor5.webp"
       />
 
       {/* Category quick nav */}

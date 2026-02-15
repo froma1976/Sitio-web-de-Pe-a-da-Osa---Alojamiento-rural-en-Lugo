@@ -11,7 +11,7 @@ function Header() {
   const navItems = useMemo(
     () => [
       { name: "Inicio", path: "/" },
-      { name: "La Casa", path: "/about" },
+      { name: "La Casa", path: "/lacasa" },
       { name: "Experiencias", path: "/galeria" },
       { name: "Contacto", path: "/contacto" },
     ],
@@ -40,21 +40,19 @@ function Header() {
   return (
     <>
       <header
-        className={`fixed z-50 transition-all duration-500 ${
-          isScrolled
+        className={`fixed z-50 transition-all duration-500 ${isScrolled
             ? "top-4 left-4 right-4 mx-auto max-w-[1400px]"
             : "top-0 left-0 right-0"
-        }`}
+          }`}
       >
         <div
-          className={`transition-all duration-500 rounded-2xl ${
-            isScrolled
+          className={`transition-all duration-500 rounded-2xl ${isScrolled
               ? "bg-[#1a1e23]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
               : "bg-transparent border border-transparent"
-          }`}
+            }`}
         >
           <div className="mx-auto flex w-full items-center justify-between px-6 md:px-8 py-4">
-            
+
             {/* Logo */}
             <Link to="/" className="group flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4765d] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1e23] rounded-lg" aria-label="Ir a inicio">
               <span className={`font-signature text-2xl md:text-3xl text-[#e5c988] transition-all duration-300 ${isScrolled ? 'opacity-100' : 'opacity-90'}`}>
@@ -71,8 +69,7 @@ function Header() {
                     to={item.path}
                     end={item.path === "/"}
                     className={({ isActive }) =>
-                      `text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4765d] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded px-2 py-1 ${
-                        isActive ? "text-[#d4765d]" : "text-white/80 hover:text-white hover:tracking-[0.18em]"
+                      `text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4765d] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded px-2 py-1 ${isActive ? "text-[#d4765d]" : "text-white/80 hover:text-white hover:tracking-[0.18em]"
                       }`
                     }
                   >
@@ -90,8 +87,8 @@ function Header() {
                   inline-flex items-center rounded-full px-6 lg:px-8 py-3 text-sm font-bold tracking-[0.15em] uppercase 
                   transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#e5c988]/20
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e5c988] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
-                  ${isScrolled 
-                    ? "bg-[#e5c988] text-[#1a1e23] hover:bg-white" 
+                  ${isScrolled
+                    ? "bg-[#e5c988] text-[#1a1e23] hover:bg-white"
                     : "bg-[#e5c988] text-[#1a1e23] hover:bg-white shadow-lg shadow-black/20"}
                 `}
               >
@@ -138,7 +135,7 @@ function Header() {
               <h2 className="text-4xl md:text-5xl font-serif text-[#e5c988] mb-4 tracking-tight">
                 Pena da Osa
               </h2>
-              
+
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.path}
@@ -155,7 +152,7 @@ function Header() {
                   </Link>
                 </motion.div>
               ))}
-              
+
               <motion.a
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

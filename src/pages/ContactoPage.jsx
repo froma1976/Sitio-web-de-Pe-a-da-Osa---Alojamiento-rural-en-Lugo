@@ -58,14 +58,14 @@ function ContactoPage() {
         <meta property="og:url" content="https://penadaosa.com/contacto" />
         <meta property="og:title" content="Contacto - Pena da Osa | Reserva tu Estancia" />
         <meta property="og:description" content="Estamos aquí para ayudarte. Contacta con nosotros para cualquier duda o reserva." />
-        <meta property="og:image" content="https://penadaosa.com/images/galeria/exterior10.jpg" />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/exterior10.webp" />
       </Helmet>
 
       <PageHero
         eyebrow="Contacto"
         title="Hablemos"
         subtitle="Escríbenos para dudas, disponibilidad o recomendaciones de la zona."
-        backgroundImage="/images/galeria/exterior6.jpg"
+        backgroundImage="/images/galeria/webp/exterior6.webp"
       />
 
       {/* Main Content */}

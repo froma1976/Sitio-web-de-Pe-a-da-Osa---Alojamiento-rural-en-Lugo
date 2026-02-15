@@ -60,13 +60,13 @@ function EntornoPage() {
       <PageHero
         title="Descubre el Entorno"
         subtitle="Ubicada en el corazón de la Ribeira Sacra, a 500 metros del centro de Sober y cerca de los espectaculares Cañones del Sil."
-        backgroundImage="/images/galeria/alrededor8.jpg"
+        backgroundImage="/images/galeria/webp/alrededor8.webp"
       />
 
       {/* Landscape Image Section */}
       <section className="relative h-[500px] overflow-hidden">
         <img
-          src="/images/galeria/alrededor4.jpg"
+          src="/images/galeria/webp/alrededor4.webp"
           alt="Paisaje de viñedos en terrazas de la Ribeira Sacra"
           className="w-full h-full object-cover"
         />
@@ -160,7 +160,7 @@ function EntornoPage() {
               className="relative overflow-hidden rounded-3xl shadow-2xl"
             >
               <img
-                src="/images/galeria/alrededor.jpg"
+                src="/images/galeria/webp/alrededor.webp"
                 alt="Vista panorámica de los Cañones del Sil con viñedos"
                 className="w-full h-[500px] object-cover"
               />

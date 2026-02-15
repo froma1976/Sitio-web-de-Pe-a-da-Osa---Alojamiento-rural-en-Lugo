@@ -19,7 +19,7 @@ const NotFoundPage = () => {
         <div className="absolute inset-0 z-0">
           <div 
             className="w-full h-full bg-cover bg-center opacity-40 scale-105"
-            style={{ backgroundImage: "url('/images/galeria/alrededor.jpg')" }}
+            style={{ backgroundImage: "url('/images/galeria/webp/alrededor.webp')" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#1a1e23]/80 via-[#1a1e23]/50 to-[#1a1e23]" />
         </div>

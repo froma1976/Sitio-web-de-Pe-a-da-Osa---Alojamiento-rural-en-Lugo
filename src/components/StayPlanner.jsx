@@ -93,6 +93,25 @@ export default function StayPlanner() {
                 return;
             }
 
+            const knowledgeContext = `
+[REGLA DE CONTEXTO: Eres Osa. Usa ESTA información prioritaria para responder y MANTÉN siempre el hilo de la conversación anterior. Si te preguntan "¿cuál es el mejor?" o similar, responde sobre el ÚLTIMO tema tratado]
+INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
+- GASTRONOMÍA: Restaurante Berso (Gourmet, Guía Michelin, huerta propia), A Cantina dos Meus Avós (Casero, brasas, asador familiar excepcional).
+- BODEGAS: Val da Lenda (Pionera en Amandi, vino Sete Tolos, catas Laura), Adega Algueira.
+- ACTIVIDADES: Catamaranes desde Doade o Os Chancís por el Sil (Muy recomendados).
+- EVENTOS 2026: Ribeira Sacra Festival (24-26 Julio), Baile da Cachucha (Febrero).
+`;
+
+            const historyForWebhook = messages.map(m => ({
+                ...m,
+                content: m.role === 'user' ? `${knowledgeContext} PREGUNTA: ${m.content}` : m.content
+            }));
+
+            historyForWebhook.push({
+                role: 'user',
+                content: `${knowledgeContext} PREGUNTA ACTUAL: ${currentPrompt}`
+            });
+
             const res = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -192,7 +211,7 @@ export default function StayPlanner() {
                                 </div>
                                 <h3 className="text-2xl font-serif text-stone-800 mb-2">¡Hola! Soy Osa</h3>
                                 <p className="text-stone-500 mb-8 leading-relaxed">
-                                    Tu asistente personal para descubrir Pena da Osa. 
+                                    Tu asistente personal para descubrir Pena da Osa.
                                     ¿Cómo te llamas?
                                 </p>
 
@@ -211,7 +230,7 @@ export default function StayPlanner() {
                                         className={`w-full py-3 px-6 rounded-xl font-semibold transition-all ${!tempName.trim()
                                             ? 'bg-stone-200 text-stone-400 cursor-not-allowed'
                                             : 'bg-[#d4765d] text-white hover:bg-[#c26952] shadow-lg shadow-[#d4765d]/20'
-                                        }`}
+                                            }`}
                                     >
                                         Empezar conversación
                                     </button>
@@ -276,11 +295,10 @@ export default function StayPlanner() {
                                                 )}
 
                                                 <div
-                                                    className={`max-w-[75%] p-3 rounded-2xl text-sm leading-relaxed ${
-                                                        msg.role === 'user'
-                                                            ? 'bg-[#1a1e23] text-white rounded-br-none'
-                                                            : 'bg-white text-stone-700 rounded-bl-none shadow-sm border border-stone-200'
-                                                    }`}
+                                                    className={`max-w-[75%] p-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
+                                                        ? 'bg-[#1a1e23] text-white rounded-br-none'
+                                                        : 'bg-white text-stone-700 rounded-bl-none shadow-sm border border-stone-200'
+                                                        }`}
                                                 >
                                                     <ReactMarkdown
                                                         remarkPlugins={[remarkGfm]}
@@ -345,7 +363,7 @@ export default function StayPlanner() {
                                             className={`p-2.5 rounded-xl transition-all ${loading || !prompt.trim()
                                                 ? 'bg-stone-200 text-stone-400 cursor-not-allowed'
                                                 : 'bg-[#d4765d] text-white hover:bg-[#c26952] shadow-md'
-                                            }`}
+                                                }`}
                                         >
                                             <Send className="w-4 h-4" />
                                         </button>

@@ -6,7 +6,7 @@ function SchemaOrg() {
         "@context": "https://schema.org",
         "@type": "LodgingBusiness",
         "name": "Pena da Osa",
-        "image": "https://penadaosa.com/images/galeria/exterior11.jpg",
+        "image": "https://penadaosa.com/images/galeria/webp/exterior11.webp",
         "description": "Retiro rural con encanto en Lugo, Galicia. Arquitectura tradicional de piedra, vistas al campo y todas las comodidades modernas.",
         "address": {
             "@type": "PostalAddress",

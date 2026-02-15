@@ -17,14 +17,14 @@ function CookiesPage() {
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://penadaosa.com/cookies" />
                 <meta property="og:title" content="Política de Cookies - Pena da Osa" />
-                <meta property="og:image" content="https://penadaosa.com/images/galeria/sala.jpg" />
+                <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/sala.webp" />
             </Helmet>
 
             <PageHero
                 eyebrow="Legal"
                 title="Política de cookies"
                 subtitle="Solo cookies propias y necesarias para recordar tu elección del banner."
-                backgroundImage="/images/galeria/sala.jpg"
+                backgroundImage="/images/galeria/webp/sala.webp"
             />
 
             {/* Content Section */}

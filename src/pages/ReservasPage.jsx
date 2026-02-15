@@ -17,7 +17,7 @@ function ReservasPage() {
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://penadaosa.com/reservas" />
                 <meta property="og:title" content="Reservas - Pena da Osa | Reserva tu Estancia" />
-                <meta property="og:image" content="https://penadaosa.com/images/galeria/exterior12.jpg" />
+                <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/exterior12.webp" />
             </Helmet>
 
             {/* Header Section */}
@@ -25,7 +25,7 @@ function ReservasPage() {
                 eyebrow="Reservas"
                 title="Reserva tu estancia"
                 subtitle="Sistema online seguro. Si prefieres, también puedes abrirlo en una nueva pestaña."
-                backgroundImage="/images/galeria/exterior12.jpg"
+                backgroundImage="/images/galeria/webp/exterior12.webp"
             />
 
             {/* Booking Iframe Section */}
