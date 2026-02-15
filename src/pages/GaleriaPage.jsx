@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 
 function GaleriaPage() {
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -23,21 +26,21 @@ function GaleriaPage() {
       .replace(/(^-|-$)+/g, "");
 
   // Group images by category
-  const categories = [
+  const categories = useMemo(() => [
     {
-      name: "Salón",
+      name: t('gallery.cat_living'),
       images: [
-        "/images/galeria/webp/salon.webp",
+        "/images/galeria/webp/fixed-salon.webp",
         "/images/galeria/webp/salon1.webp",
-        "/images/galeria/webp/salon3.webp",
-        "/images/galeria/webp/sala.webp"
+        "/images/galeria/webp/fixed-salon3.webp",
+        "/images/galeria/webp/fixed-sala.webp"
       ]
     },
     {
-      name: "Habitaciones",
+      name: t('gallery.cat_rooms'),
       images: [
-        "/images/galeria/webp/habitacion1.webp",
-        "/images/galeria/webp/habitacion2.webp",
+        "/images/galeria/webp/fixed-habitacion1.webp",
+        "/images/galeria/webp/fixed-habitacion2.webp",
         "/images/galeria/webp/habitacion3.webp",
         "/images/galeria/webp/habitacion4.webp",
         "/images/galeria/webp/habitacion5.webp",
@@ -45,41 +48,41 @@ function GaleriaPage() {
       ]
     },
     {
-      name: "Cocina",
+      name: t('gallery.cat_kitchen'),
       images: [
-        "/images/galeria/webp/cocina1.webp",
-        "/images/galeria/webp/cocina2.webp",
+        "/images/galeria/webp/fixed-cocina1.webp",
+        "/images/galeria/webp/fixed-cocina2.webp",
         "/images/galeria/webp/cocina3.webp"
       ]
     },
     {
-      name: "Patio",
+      name: t('gallery.cat_patio'),
       images: [
-        "/images/galeria/webp/exterior3.webp",
+        "/images/galeria/webp/fixed-exterior3.webp",
         "/images/galeria/webp/exterior.webp",
-        "/images/galeria/webp/exterior11.webp",
+        "/images/galeria/webp/fixed-exterior11.webp",
         "/images/galeria/webp/exterior14.webp",
         "/images/galeria/webp/exterioir15.webp"
       ]
     },
     {
-      name: "Terraza",
+      name: t('gallery.cat_terrace'),
       images: [
-        "/images/galeria/webp/exterior8.webp"
+        "/images/galeria/webp/fixed-exterior8.webp"
       ]
     },
     {
-      name: "Exterior y Fachada",
+      name: t('gallery.cat_exterior'),
       images: [
         "/images/galeria/webp/exterior12.webp",
         "/images/galeria/webp/exterior13.webp",
-        "/images/galeria/webp/exterior5.webp",
+        "/images/galeria/webp/fixed-exterior5.webp",
         "/images/galeria/webp/exterior6.webp",
         "/images/galeria/webp/exterior18.webp"
       ]
     },
     {
-      name: "Alrededores",
+      name: t('gallery.cat_surroundings'),
       images: [
         "/images/galeria/webp/alrededor.webp",
         "/images/galeria/webp/alrededor1.webp",
@@ -88,12 +91,11 @@ function GaleriaPage() {
         "/images/galeria/webp/alrededor5.webp",
         "/images/galeria/webp/alrededor7.webp",
         "/images/galeria/webp/alrededor8.webp",
-        "/images/galeria/webp/alrededor8.webp",
         "/images/galeria/webp/alrededor19.webp",
         "/images/galeria/webp/alrededor20.webp"
       ]
     }
-  ];
+  ], [t]);
 
   // Flatten all images for lightbox navigation
   const allImages = categories.flatMap(cat => cat.images.map(img => ({ url: img, category: cat.name })));
@@ -123,26 +125,26 @@ function GaleriaPage() {
   return (
     <>
       <Helmet>
-        <title>Galería - Pena da Osa | Recorrido Fotográfico</title>
+        <title>{t('gallery.title')}</title>
         <meta
           name="description"
-          content="Explora la galería de fotos de Pena da Osa. Vea nuestras habitaciones, cocina, patio, zona de barbacoa y los impresionantes alrededores."
+          content={t('gallery.description')}
         />
         <link rel="canonical" href="https://penadaosa.com/galeria" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://penadaosa.com/galeria" />
-        <meta property="og:title" content="Galería - Pena da Osa | Recorrido Fotográfico" />
-        <meta property="og:description" content="Explora cada rincón de Pena da Osa a través de nuestra galería fotográfica." />
+        <meta property="og:title" content={t('gallery.title')} />
+        <meta property="og:description" content={t('gallery.description')} />
         <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/alrededor5.webp" />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="Galería - Pena da Osa | Recorrido Fotográfico" />
+        <meta property="twitter:title" content={t('gallery.title')} />
         <meta property="twitter:image" content="https://penadaosa.com/images/galeria/webp/alrededor5.webp" />
       </Helmet>
 
       <PageHero
-        eyebrow="Galería"
-        title="Recorrido fotográfico"
-        subtitle="Interior, exterior y alrededores. Un vistazo fiel para que sepas exactamente lo que vas a vivir."
+        eyebrow={t('common.gallery')}
+        title={t('gallery.hero_title')}
+        subtitle={t('gallery.hero_subtitle')}
         backgroundImage="/images/galeria/webp/alrededor5.webp"
       />
 
@@ -189,7 +191,7 @@ function GaleriaPage() {
                     <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-64 bg-black/5">
                       <img
                         src={imgUrl}
-                        alt={`${category.name} - Vista ${imgIndex + 1}`}
+                        alt={`${category.name} - ${t('common.view')} ${imgIndex + 1}`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
                       />
@@ -216,7 +218,7 @@ function GaleriaPage() {
             <button
               onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
               className="absolute left-4 z-50 p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
-              aria-label="Imagen anterior"
+              aria-label={t('common.previous')}
             >
               <ChevronLeft className="h-8 w-8 text-white" />
             </button>
@@ -249,7 +251,7 @@ function GaleriaPage() {
             <button
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
               className="absolute right-4 z-50 p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
-              aria-label="Siguiente imagen"
+              aria-label={t('common.next')}
             >
               <ChevronRight className="h-8 w-8 text-white" />
             </button>

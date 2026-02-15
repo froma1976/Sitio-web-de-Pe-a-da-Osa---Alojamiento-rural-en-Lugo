@@ -5,66 +5,68 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Copy } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { toast } from "@/components/ui/use-toast";
+import { useTranslation } from "react-i18next";
 
 function ContactoPage() {
+  const { t, i18n } = useTranslation();
   const contactInfo = useMemo(
     () => [
       {
         icon: MapPin,
-        title: "Ubicación",
+        title: t('contact.info_location'),
         content: "Os Pacios, 4 · 27460 Sober, Lugo",
-        subtitle: "Galicia, España",
+        subtitle: t('contact.info_location_sub'),
         copyValue: "Os Pacios, 4, 27460 Sober, Lugo, Galicia, España",
       },
       {
         icon: Phone,
-        title: "Teléfono",
+        title: t('contact.info_phone'),
         content: "+34 639 403 998",
-        subtitle: "Llámanos para reservar",
+        subtitle: t('contact.info_phone_sub'),
         href: "tel:+34639403998",
         copyValue: "+34639403998",
       },
       {
         icon: Mail,
-        title: "Email",
+        title: t('contact.info_email'),
         content: "turismoruralpendaosa@gmail.com",
-        subtitle: "Respondemos rápido",
+        subtitle: t('contact.info_email_sub'),
         href: "mailto:turismoruralpendaosa@gmail.com",
         copyValue: "turismoruralpendaosa@gmail.com",
       },
     ],
-    []
+    [t]
   );
 
   const onCopy = async (value) => {
     try {
       await navigator.clipboard.writeText(value);
-      toast({ title: "Copiado", description: value });
+      toast({ title: t('contact.copied'), description: value });
     } catch {
-      toast({ title: "No se pudo copiar", description: "Tu navegador no permite copiar automaticamente." });
+      toast({ title: t('contact.copy_error'), description: t('contact.copy_error_desc') });
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>Contacto - Pena da Osa | Reserva tu Estancia en Galicia</title>
+        <title>{t('contact.title')}</title>
         <meta
           name="description"
-          content="Contacta con Pena da Osa en Sober, Lugo. Llama al +34 639 403 998 o visítanos en el corazón de la Ribeira Sacra."
+          content={t('contact.description')}
         />
         <link rel="canonical" href="https://penadaosa.com/contacto" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://penadaosa.com/contacto" />
-        <meta property="og:title" content="Contacto - Pena da Osa | Reserva tu Estancia" />
-        <meta property="og:description" content="Estamos aquí para ayudarte. Contacta con nosotros para cualquier duda o reserva." />
+        <meta property="og:title" content={t('contact.title')} />
+        <meta property="og:description" content={t('contact.description')} />
         <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/exterior10.webp" />
       </Helmet>
 
       <PageHero
-        eyebrow="Contacto"
-        title="Hablemos"
-        subtitle="Escríbenos para dudas, disponibilidad o recomendaciones de la zona."
+        eyebrow={t('common.contact')}
+        title={t('contact.hero_title')}
+        subtitle={t('contact.hero_subtitle')}
         backgroundImage="/images/galeria/webp/exterior6.webp"
       />
 
@@ -117,10 +119,10 @@ function ContactoPage() {
                           onCopy(info.copyValue);
                         }}
                         className="shrink-0 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-2 text-xs font-semibold tracking-[0.18em] uppercase text-[#1a1e23] hover:border-black/20"
-                        aria-label={`Copiar ${info.title}`}
+                        aria-label={`${t('contact.copy_btn')} ${info.title}`}
                       >
                         <Copy className="h-4 w-4" />
-                        Copiar
+                        {t('contact.copy_btn')}
                       </button>
                     </div>
                   </Card>
@@ -129,19 +131,19 @@ function ContactoPage() {
 
               <div className="rounded-2xl border border-black/10 bg-[#1a1e23] text-white p-6 shadow-sm">
                 <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#e5c988]">
-                  Consejo
+                  {t('contact.tip_title')}
                 </p>
                 <p className="mt-2 text-white/80 leading-relaxed">
-                  Para reservas, también puedes usar el sistema online integrado en la web.
+                  {t('contact.tip_text')}
                 </p>
                 <div className="mt-5">
                   <a
-                    href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+                    href={`https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=${i18n.language === 'en' ? 'en' : 'es'}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center rounded-full bg-white text-[#1a1e23] px-5 py-2 text-xs font-semibold tracking-[0.18em] uppercase hover:bg-[#e5c988] transition-colors"
                   >
-                    Abrir reservas
+                    {t('contact.tip_btn')}
                   </a>
                 </div>
               </div>
@@ -173,7 +175,7 @@ function ContactoPage() {
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 px-6 py-3 rounded-full shadow-lg">
                         <p className="text-stone-800 font-semibold flex items-center gap-2">
                           <MapPin className="h-5 w-5" />
-                          Ver en Google Maps
+                          {t('contact.view_maps')}
                         </p>
                       </div>
                     </div>

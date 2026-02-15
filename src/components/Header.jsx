@@ -1,22 +1,29 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 function Header() {
+  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   const navItems = useMemo(
     () => [
-      { name: "Inicio", path: "/" },
-      { name: "La Casa", path: "/lacasa" },
-      { name: "Experiencias", path: "/galeria" },
-      { name: "Contacto", path: "/contacto" },
+      { name: t('common.home'), path: "/" },
+      { name: t('common.the_house'), path: "/lacasa" },
+      { name: t('common.gallery'), path: "/galeria" },
+      { name: t('common.contact'), path: "/contacto" },
     ],
-    []
+    [t]
   );
+
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(nextLang);
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 50);
@@ -41,14 +48,14 @@ function Header() {
     <>
       <header
         className={`fixed z-50 transition-all duration-500 ${isScrolled
-            ? "top-4 left-4 right-4 mx-auto max-w-[1400px]"
-            : "top-0 left-0 right-0"
+          ? "top-4 left-4 right-4 mx-auto max-w-[1400px]"
+          : "top-0 left-0 right-0"
           }`}
       >
         <div
           className={`transition-all duration-500 rounded-2xl ${isScrolled
-              ? "bg-[#1a1e23]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
-              : "bg-transparent border border-transparent"
+            ? "bg-[#1a1e23]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
+            : "bg-transparent border border-transparent"
             }`}
         >
           <div className="mx-auto flex w-full items-center justify-between px-6 md:px-8 py-4">
@@ -78,9 +85,19 @@ function Header() {
                 ))}
               </nav>
 
-              {/* CTA Button - Más prominente */}
+              {/* Language Switcher */}
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white/70 hover:text-[#e5c988] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e5c988] rounded-lg px-2 py-1"
+                aria-label="Cambiar idioma"
+              >
+                <Globe className="w-4 h-4" />
+                <span>{i18n.language === 'es' ? 'ES' : 'EN'}</span>
+              </button>
+
+              {/* CTA Button */}
               <a
-                href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+                href={`https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=${i18n.language === 'en' ? 'en' : 'es'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`
@@ -92,18 +109,26 @@ function Header() {
                     : "bg-[#e5c988] text-[#1a1e23] hover:bg-white shadow-lg shadow-black/20"}
                 `}
               >
-                Reservar
+                {t('common.reserve')}
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4765d]"
-              aria-label="Abrir menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            {/* Mobile Actions (Lang + Menu) */}
+            <div className="md:hidden flex items-center gap-4">
+              <button
+                onClick={toggleLanguage}
+                className="text-white/80 p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e5c988] rounded-lg"
+              >
+                <span className="text-xs font-bold uppercase tracking-widest">{i18n.language === 'es' ? 'ES' : 'EN'}</span>
+              </button>
+              <button
+                onClick={() => setIsMenuOpen(true)}
+                className="text-white p-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4765d]"
+                aria-label="Abrir menu"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -157,13 +182,13 @@ function Header() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navItems.length * 0.1 }}
-                href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+                href={`https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=${i18n.language === 'en' ? 'en' : 'es'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
                 className="mt-4 inline-flex items-center rounded-full bg-[#e5c988] text-[#1a1e23] px-10 py-4 text-base font-bold tracking-[0.2em] uppercase hover:bg-white transition-all duration-300 transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
-                Reservar
+                {t('common.reserve')}
               </motion.a>
             </nav>
           </motion.div>

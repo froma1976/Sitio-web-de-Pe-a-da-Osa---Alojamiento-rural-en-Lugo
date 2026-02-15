@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, Sun, Wind } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 const WeatherWidget = () => {
+  const { t } = useTranslation();
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -40,21 +42,21 @@ const WeatherWidget = () => {
   };
 
   const getWeatherDescription = (code) => {
-    if (code === 0) return "Despejado";
-    if (code >= 1 && code <= 3) return "Parcialmente nublado";
-    if (code >= 45 && code <= 48) return "Niebla";
-    if (code >= 51 && code <= 67) return "Llovizna";
-    if (code >= 71 && code <= 77) return "Nieve";
-    if (code >= 80 && code <= 82) return "Lluvia";
-    if (code >= 95 && code <= 99) return "Tormenta";
-    return "Despejado";
+    if (code === 0) return t('weather.clear');
+    if (code >= 1 && code <= 3) return t('weather.partly_cloudy');
+    if (code >= 45 && code <= 48) return t('weather.fog');
+    if (code >= 51 && code <= 67) return t('weather.drizzle');
+    if (code >= 71 && code <= 77) return t('weather.snow');
+    if (code >= 80 && code <= 82) return t('weather.rain');
+    if (code >= 95 && code <= 99) return t('weather.storm');
+    return t('weather.clear');
   };
 
   if (loading) return <div className="animate-pulse h-5 w-20 bg-white/10 rounded"></div>;
   if (!weather) return null;
 
   return (
-    <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm">
+    <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm" title={getWeatherDescription(weather.weather_code)}>
       {getWeatherIcon(weather.weather_code)}
       <div className="flex flex-col leading-none">
         <span className="text-sm font-semibold text-white">
@@ -69,3 +71,4 @@ const WeatherWidget = () => {
 };
 
 export default WeatherWidget;
+

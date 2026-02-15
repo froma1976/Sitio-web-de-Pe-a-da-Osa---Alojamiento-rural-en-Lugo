@@ -2,28 +2,31 @@
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { Shield, Info } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import PageHero from "@/components/PageHero";
 
 function CookiesPage() {
+    const { t, i18n } = useTranslation();
+
     return (
         <>
             <Helmet>
-                <title>Política de Cookies - Pena da Osa</title>
+                <title>{t('cookies.page_title')}</title>
                 <meta
                     name="description"
-                    content="Información sobre el uso de cookies en el sitio web de Pena da Osa. Transparencia y privacidad."
+                    content={t('cookies.meta_desc')}
                 />
                 <link rel="canonical" href="https://penadaosa.com/cookies" />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://penadaosa.com/cookies" />
-                <meta property="og:title" content="Política de Cookies - Pena da Osa" />
+                <meta property="og:title" content={t('cookies.og_title')} />
                 <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/sala.webp" />
             </Helmet>
 
             <PageHero
-                eyebrow="Legal"
-                title="Política de cookies"
-                subtitle="Solo cookies propias y necesarias para recordar tu elección del banner."
+                eyebrow={t('cookies.eyebrow')}
+                title={t('cookies.title')}
+                subtitle={t('cookies.subtitle')}
                 backgroundImage="/images/galeria/webp/sala.webp"
             />
 
@@ -42,12 +45,10 @@ function CookiesPage() {
                                 <Info className="h-6 w-6 text-stone-700 flex-shrink-0 mt-1" />
                                 <div>
                                     <h2 className="text-2xl font-bold text-stone-800 mb-4 mt-0">
-                                        ¿Qué son las cookies?
+                                        {t('cookies.what_are_cookies')}
                                     </h2>
                                     <p className="text-stone-600 leading-relaxed mb-0">
-                                        Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo
-                                        cuando visitas un sitio web. Se utilizan para que el sitio web funcione de
-                                        manera más eficiente y para proporcionar información a los propietarios del sitio.
+                                        {t('cookies.what_are_cookies_desc')}
                                     </p>
                                 </div>
                             </div>
@@ -58,20 +59,17 @@ function CookiesPage() {
                                 <Shield className="h-6 w-6 text-stone-700 flex-shrink-0 mt-1" />
                                 <div>
                                     <h2 className="text-2xl font-bold text-stone-800 mb-4 mt-0">
-                                        ¿Qué cookies utilizamos?
+                                        {t('cookies.what_we_use')}
                                     </h2>
                                     <p className="text-stone-600 leading-relaxed mb-4">
-                                        En Pena da Osa únicamente utilizamos cookies estrictamente necesarias para
-                                        el funcionamiento básico del sitio web:
+                                        {t('cookies.what_we_use_desc')}
                                     </p>
                                     <ul className="space-y-2 text-stone-600">
                                         <li>
-                                            <strong>Cookies de preferencias:</strong> Recordamos tu elección sobre el
-                                            banner de cookies para no mostrártelo de nuevo.
+                                            <strong>{t('cookies.pref_cookies')}:</strong> {t('cookies.pref_cookies_desc')}
                                         </li>
                                         <li>
-                                            <strong>Cookies de sesión:</strong> Permiten la navegación básica por el
-                                            sitio web.
+                                            <strong>{t('cookies.session_cookies')}:</strong> {t('cookies.session_cookies_desc')}
                                         </li>
                                     </ul>
                                 </div>
@@ -80,21 +78,19 @@ function CookiesPage() {
 
                         <div className="bg-stone-50 p-6 rounded-xl mb-8">
                             <h2 className="text-2xl font-bold text-stone-800 mb-4">
-                                No utilizamos cookies de terceros
+                                {t('cookies.no_third_party')}
                             </h2>
                             <p className="text-stone-600 leading-relaxed mb-0">
-                                No utilizamos cookies de análisis, publicitarias ni de redes sociales.
-                                No compartimos información con terceros a través de cookies.
+                                {t('cookies.no_third_party_desc')}
                             </p>
                         </div>
 
                         <div className="bg-stone-50 p-6 rounded-xl">
                             <h2 className="text-2xl font-bold text-stone-800 mb-4">
-                                Gestionar cookies
+                                {t('cookies.manage_cookies')}
                             </h2>
                             <p className="text-stone-600 leading-relaxed mb-4">
-                                Puedes gestionar o eliminar las cookies según tus preferencias. Para más información,
-                                consulta la ayuda de tu navegador:
+                                {t('cookies.manage_cookies_desc')}
                             </p>
                             <ul className="space-y-2 text-stone-600 mb-0">
                                 <li>
@@ -122,7 +118,7 @@ function CookiesPage() {
 
                         <div className="mt-8 p-6 bg-stone-100 rounded-xl">
                             <p className="text-sm text-stone-600 mb-0">
-                                <strong>Última actualización:</strong> {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                <strong>{t('cookies.last_update')}:</strong> {new Date().toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                             </p>
                         </div>
                     </motion.div>

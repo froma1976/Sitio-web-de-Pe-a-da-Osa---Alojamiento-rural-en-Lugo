@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import WeatherWidget from "./WeatherWidget";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t, i18n } = useTranslation();
+
   return (
     <footer className="bg-[#1a1e23] border-t border-white/5 text-[#f9f6ef]">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-20">
@@ -20,19 +23,18 @@ function Footer() {
               </span>
             </Link>
             <p className="text-stone-400 text-lg leading-relaxed max-w-md font-light mb-8">
-              Un refugio con encanto donde la arquitectura tradicional de piedra se fusiona con el confort moderno.
-              El escenario perfecto para crear recuerdos inolvidables en el corazón de Galicia.
+              {t('footer.tagline')}
             </p>
-            
+
             {/* Weather Widget Integrated Here */}
             <div className="inline-block">
-                <WeatherWidget />
+              <WeatherWidget />
             </div>
           </div>
 
           {/* Contact Information */}
           <div>
-            <h3 className="text-lg font-serif text-[#d4765d] mb-6 tracking-wide">Contacto</h3>
+            <h3 className="text-lg font-serif text-[#d4765d] mb-6 tracking-wide">{t('footer.contact_title')}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-4 group">
                 <MapPin className="h-5 w-5 text-stone-500 group-hover:text-[#d4765d] transition-colors mt-1" />
@@ -57,31 +59,31 @@ function Footer() {
 
           {/* Links */}
           <div>
-            <h3 className="text-lg font-serif text-[#d4765d] mb-6 tracking-wide">Explorar</h3>
+            <h3 className="text-lg font-serif text-[#d4765d] mb-6 tracking-wide">{t('footer.links')}</h3>
             <ul className="space-y-4">
               <li>
-                <Link to="/about" className="text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block duration-300">
-                  La Casa
+                <Link to="/lacasa" className="text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block duration-300">
+                  {t('common.the_house')}
                 </Link>
               </li>
               <li>
                 <Link to="/galeria" className="text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block duration-300">
-                  Galería
+                  {t('common.gallery')}
                 </Link>
               </li>
               <li>
                 <Link to="/contacto" className="text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block duration-300">
-                  Contacto
+                  {t('common.contact')}
                 </Link>
               </li>
               <li>
                 <a
-                  href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es"
+                  href={`https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=${i18n.language === 'en' ? 'en' : 'es'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block duration-300"
                 >
-                  Reservar Ahora
+                  {t('common.reserve')}
                 </a>
               </li>
             </ul>
@@ -90,7 +92,7 @@ function Footer() {
 
         <div className="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-stone-600 font-light">
-            &copy; {new Date().getFullYear()} Pena da Osa. All rights reserved.
+            &copy; {new Date().getFullYear()} Pena da Osa. {t('footer.rights')}
           </p>
 
           <div className="flex items-center gap-6">
@@ -98,7 +100,7 @@ function Footer() {
               VUT-LU-001701
             </span>
             <Link to="/cookies" className="text-xs text-stone-600 hover:text-stone-400 transition-colors">
-              Política de Cookies
+              {t('footer.cookies')}
             </Link>
           </div>
         </div>

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { withTranslation } from 'react-i18next';
 
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      hasError: false, 
+    this.state = {
+      hasError: false,
       error: null,
-      errorInfo: null 
+      errorInfo: null
     };
   }
 
@@ -18,7 +19,7 @@ class ErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
     this.setState({ errorInfo });
-    
+
     // Aquí podrías enviar el error a un servicio de tracking
     // logErrorToService(error, errorInfo);
   }
@@ -32,6 +33,8 @@ class ErrorBoundary extends Component {
   };
 
   render() {
+    const { t } = this.props;
+
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-[#1a1e23] flex items-center justify-center p-4">
@@ -39,14 +42,13 @@ class ErrorBoundary extends Component {
             <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <AlertTriangle className="w-10 h-10 text-red-500" />
             </div>
-            
+
             <h1 className="text-3xl font-serif text-white mb-4">
-              Algo salió mal
+              {t('error.title')}
             </h1>
-            
+
             <p className="text-white/60 mb-8">
-              Lo sentimos, ha ocurrido un error inesperado. 
-              Por favor, intenta recargar la página.
+              {t('error.desc')}
             </p>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
@@ -61,21 +63,21 @@ class ErrorBoundary extends Component {
                 )}
               </div>
             )}
-            
+
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={this.handleReload}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#d4765d] text-white rounded-full font-semibold hover:bg-[#c26952] transition-colors"
               >
                 <RefreshCw className="w-4 h-4" />
-                Recargar página
+                {t('error.reload')}
               </button>
-              
+
               <button
                 onClick={this.handleGoHome}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-white rounded-full font-semibold hover:bg-white/20 transition-colors"
               >
-                Volver al inicio
+                {t('error.home')}
               </button>
             </div>
           </div>
@@ -87,4 +89,4 @@ class ErrorBoundary extends Component {
   }
 }
 
-export default ErrorBoundary;
+export default withTranslation()(ErrorBoundary);

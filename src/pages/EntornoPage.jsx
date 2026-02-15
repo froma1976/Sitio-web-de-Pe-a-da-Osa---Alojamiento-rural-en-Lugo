@@ -3,63 +3,67 @@ import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { MapPin, Wine, Mountain, Church, Footprints, Camera } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 
 function EntornoPage() {
-  const attractions = [
+  const { t } = useTranslation();
+
+  const attractions = useMemo(() => [
     {
       icon: Mountain,
-      title: "Cañones del Sil",
-      description: "Impresionantes gargantas fluviales con miradores espectaculares y rutas de senderismo. A pocos minutos de la casa.",
+      title: t('environment.attraction_sil'),
+      description: t('environment.attraction_sil_desc'),
     },
     {
       icon: Wine,
-      title: "Bodegas D.O. Ribeira Sacra",
-      description: "Visita las bodegas de la denominación de origen más antigua de Galicia. Catas y tours disponibles.",
+      title: t('environment.attraction_wineries'),
+      description: t('environment.attraction_wineries_desc'),
     },
     {
       icon: Church,
-      title: "Monasterios Románicos",
-      description: "Descubre el patrimonio religioso de la Ribeira Sacra, con monasterios centenarios de gran belleza.",
+      title: t('environment.attraction_monasteries'),
+      description: t('environment.attraction_monasteries_desc'),
     },
     {
       icon: Footprints,
-      title: "Rutas de Senderismo",
-      description: "Explora los senderos que recorren viñedos en terrazas y paisajes únicos de la zona.",
+      title: t('environment.attraction_hiking'),
+      description: t('environment.attraction_hiking_desc'),
     },
     {
       icon: Camera,
-      title: "Miradores Panorámicos",
-      description: "Vistas inolvidables desde los miradores de los Cañones del Sil y el río Miño.",
+      title: t('environment.attraction_viewpoints'),
+      description: t('environment.attraction_viewpoints_desc'),
     },
     {
       icon: MapPin,
-      title: "Casco Histórico de Sober",
-      description: "A solo 500 metros, disfruta del encanto del pueblo con sus comercios y restaurantes tradicionales.",
+      title: t('environment.attraction_sober'),
+      description: t('environment.attraction_sober_desc'),
     },
-  ];
+  ], [t]);
 
-  const distances = [
-    { place: "Centro de Sober", distance: "500 metros", time: "6 min a pie" },
-    { place: "Cañones del Sil", distance: "3 km", time: "5 min en coche" },
-    { place: "Bodegas cercanas", distance: "2-5 km", time: "5-10 min" },
-    { place: "Mirador de Cabezoás", distance: "8 km", time: "12 min" },
-    { place: "Monforte de Lemos", distance: "25 km", time: "25 min" },
-    { place: "Ourense", distance: "45 km", time: "45 min" },
-  ];
+  const distances = useMemo(() => [
+    { place: t('environment.dist_sober'), distance: "500 meters", time: t('environment.dist_sober_time') },
+    { place: t('environment.dist_sil'), distance: "3 km", time: t('environment.dist_sil_time') },
+    { place: t('environment.dist_wineries'), distance: "2-5 km", time: t('environment.dist_wineries_time') },
+    { place: t('environment.dist_viewpoint'), distance: "8 km", time: t('environment.dist_viewpoint_time') },
+    { place: t('environment.dist_monforte'), distance: "25 km", time: t('environment.dist_monforte_time') },
+    { place: t('environment.dist_ourense'), distance: "45 km", time: t('environment.dist_ourense_time') },
+  ], [t]);
 
   return (
     <>
       <Helmet>
-        <title>Entorno - Pena da Osa | Ribeira Sacra, Cañones del Sil</title>
+        <title>{t('environment.title')}</title>
         <meta
           name="description"
-          content="Descubre el entorno de Pena da Osa en Sober: Cañones del Sil, bodegas D.O. Ribeira Sacra, monasterios románicos y rutas de senderismo. A 500m del centro."
+          content={t('environment.description')}
         />
       </Helmet>
 
       <PageHero
-        title="Descubre el Entorno"
-        subtitle="Ubicada en el corazón de la Ribeira Sacra, a 500 metros del centro de Sober y cerca de los espectaculares Cañones del Sil."
+        title={t('environment.hero_title')}
+        subtitle={t('environment.hero_subtitle')}
         backgroundImage="/images/galeria/webp/alrededor8.webp"
       />
 
@@ -79,7 +83,7 @@ function EntornoPage() {
               transition={{ duration: 0.6 }}
               className="text-white text-2xl sm:text-3xl font-serif"
             >
-              Los viñedos heroicos de la Ribeira Sacra
+              {t('environment.heroic_vineyards')}
             </motion.p>
           </div>
         </div>
@@ -96,10 +100,10 @@ function EntornoPage() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-serif text-[#1a1e23] mb-4">
-              Qué Visitar en Sober
+              {t('environment.visit_sober_title')}
             </h2>
             <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-              Un destino lleno de naturaleza, cultura y tradición vitivinícola
+              {t('environment.visit_sober_subtitle')}
             </p>
           </motion.div>
 
@@ -135,20 +139,16 @@ function EntornoPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-4xl sm:text-5xl font-serif text-[#1a1e23] mb-6">
-                Cañones del Sil
+                {t('environment.sil_title')}
               </h2>
               <p className="text-lg text-stone-600 mb-4 leading-relaxed">
-                Los Cañones del Sil son uno de los paisajes más espectaculares de Galicia.
-                Estas profundas gargantas excavadas por el río Sil ofrecen vistas impresionantes
-                desde múltiples miradores.
+                {t('environment.sil_p1')}
               </p>
               <p className="text-lg text-stone-600 mb-4 leading-relaxed">
-                Podrás realizar catamaranes por el río, rutas de senderismo por los miradores,
-                o simplemente disfrutar de la tranquilidad y belleza del entorno natural.
+                {t('environment.sil_p2')}
               </p>
               <p className="text-lg text-stone-600 leading-relaxed">
-                Las paredes del cañón están cubiertas de viñedos en terrazas, creando un
-                paisaje único que combina naturaleza y tradición vitivinícola.
+                {t('environment.sil_p3')}
               </p>
             </motion.div>
 
@@ -180,12 +180,10 @@ function EntornoPage() {
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-serif text-[#1a1e23] mb-6">
-              Bodegas D.O. Ribeira Sacra
+              {t('environment.wineries_title')}
             </h2>
             <p className="text-lg text-stone-600 max-w-4xl mx-auto leading-relaxed">
-              La Denominación de Origen Ribeira Sacra es conocida por sus vinos únicos,
-              cultivados en viñedos heroicos que desafían la gravedad en las laderas de los
-              cañones. Sober es uno de los núcleos principales de esta región vitivinícola.
+              {t('environment.wineries_p')}
             </p>
           </motion.div>
 
@@ -197,10 +195,9 @@ function EntornoPage() {
               transition={{ duration: 0.5 }}
               className="bg-white p-6 rounded-2xl shadow-lg"
             >
-              <h3 className="text-xl font-serif font-bold text-[#1a1e23] mb-3">Visitas y Catas</h3>
+              <h3 className="text-xl font-serif font-bold text-[#1a1e23] mb-3">{t('environment.wineries_tastings')}</h3>
               <p className="text-stone-600">
-                Descubre el proceso de elaboración del vino y degusta los mejores caldos
-                de la región en bodegas cercanas.
+                {t('environment.wineries_tastings_p')}
               </p>
             </motion.div>
 
@@ -211,10 +208,9 @@ function EntornoPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="bg-white p-6 rounded-2xl shadow-lg"
             >
-              <h3 className="text-xl font-serif font-bold text-[#1a1e23] mb-3">Viñedos Heroicos</h3>
+              <h3 className="text-xl font-serif font-bold text-[#1a1e23] mb-3">{t('environment.wineries_heroic')}</h3>
               <p className="text-stone-600">
-                Los viñedos en pendientes pronunciadas son un espectáculo único,
-                trabajados con técnicas tradicionales transmitidas por generaciones.
+                {t('environment.wineries_heroic_p')}
               </p>
             </motion.div>
 
@@ -225,10 +221,9 @@ function EntornoPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="bg-white p-6 rounded-2xl shadow-lg"
             >
-              <h3 className="text-xl font-serif font-bold text-[#1a1e23] mb-3">Variedades Autóctonas</h3>
+              <h3 className="text-xl font-serif font-bold text-[#1a1e23] mb-3">{t('environment.wineries_varieties')}</h3>
               <p className="text-stone-600">
-                Mencía, Godello, Albariño... Descubre las variedades de uva únicas
-                que dan carácter a los vinos de la Ribeira Sacra.
+                {t('environment.wineries_varieties_p')}
               </p>
             </motion.div>
           </div>
@@ -246,11 +241,10 @@ function EntornoPage() {
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-serif text-white mb-4">
-              Ubicación Privilegiada
+              {t('environment.location_title')}
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Pena da Osa está estratégicamente ubicada para que puedas disfrutar
-              de todos los atractivos de la Ribeira Sacra
+              {t('environment.location_subtitle')}
             </p>
           </motion.div>
 

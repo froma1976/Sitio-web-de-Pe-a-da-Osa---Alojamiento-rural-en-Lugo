@@ -1,9 +1,11 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { X, Cookie } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 function CookieBanner() {
+    const { t } = useTranslation();
     const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
@@ -33,10 +35,9 @@ function CookieBanner() {
                     <Cookie className="h-6 w-6 text-[#d4765d] flex-shrink-0 mt-1" />
                     <div>
                         <p className="text-sm text-foreground/80">
-                            Utilizamos cookies propias para mejorar tu experiencia de navegación. Al continuar,
-                            aceptas nuestra{' '}
+                            {t('cookies.banner_text')}{' '}
                             <Link to="/cookies" className="underline underline-offset-4 hover:text-foreground">
-                                Política de Cookies
+                                {t('cookies.policy_link')}
                             </Link>.
                         </p>
                     </div>
@@ -48,14 +49,14 @@ function CookieBanner() {
                         onClick={rejectCookies}
                         className="rounded-full"
                     >
-                        Rechazar
+                        {t('cookies.reject')}
                     </Button>
                     <Button
                         size="sm"
                         onClick={acceptCookies}
                         className="rounded-full bg-[#1a1e23] text-white hover:bg-[#d4765d]"
                     >
-                        Aceptar
+                        {t('cookies.accept')}
                     </Button>
                 </div>
             </div>

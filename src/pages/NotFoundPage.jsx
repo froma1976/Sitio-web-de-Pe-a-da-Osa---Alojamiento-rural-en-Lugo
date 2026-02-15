@@ -3,21 +3,24 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Compass } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 
 const NotFoundPage = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Helmet>
-        <title>404 - Perdido en el Bosque | Pena da Osa</title>
+        <title>{t('not_found.page_title')}</title>
         <meta name="robots" content="noindex" />
       </Helmet>
 
       <div className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#1a1e23]">
-        
+
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <div 
+          <div
             className="w-full h-full bg-cover bg-center opacity-40 scale-105"
             style={{ backgroundImage: "url('/images/galeria/webp/alrededor.webp')" }}
           />
@@ -25,7 +28,7 @@ const NotFoundPage = () => {
         </div>
 
         {/* Content */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -36,25 +39,25 @@ const NotFoundPage = () => {
           </div>
 
           <h1 className="font-serif text-6xl md:text-8xl text-[#e5c988] mb-4 opacity-90">
-            404
+            {t('not_found.title')}
           </h1>
-          
+
           <p className="font-signature text-4xl md:text-5xl text-white/90 mb-6 -rotate-2 origin-center">
-            Parece que te has desviado del sendero...
-          </p>
-          
-          <p className="text-stone-300 text-lg max-w-md mx-auto mb-10 font-light leading-relaxed">
-            Pero no te preocupes, en Galicia perderse es solo otra forma de encontrar lugares maravillosos.
+            {t('not_found.signature')}
           </p>
 
-          <Button 
-            asChild 
+          <p className="text-stone-300 text-lg max-w-md mx-auto mb-10 font-light leading-relaxed">
+            {t('not_found.description')}
+          </p>
+
+          <Button
+            asChild
             size="lg"
             className="rounded-full px-8 bg-[#e5c988] text-[#1a1e23] hover:bg-white hover:text-[#1a1e23] font-bold tracking-widest uppercase transition-all"
           >
             <Link to="/" className="flex items-center gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Volver al Refugio
+              {t('not_found.back_home')}
             </Link>
           </Button>
         </motion.div>

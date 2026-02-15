@@ -7,59 +7,63 @@ import {
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 
 function LaCasaPage() {
-  const floors = [
-    {
-      title: "Planta Baja",
-      image: "/images/galeria/webp/exterior11.webp",
-      alt: "Patio tradicional gallego de piedra en Peña da Osa con horno antiguo",
-      description: "El corazón de la casa tradicional gallega",
-      features: [
-        "Patio tradicional con ambiente acogedor",
-        "Zona de churrasco con horno de piedra antiguo",
-        "Baños de servicio completamente equipados",
-        "Espacio ideal para reuniones al aire libre",
-      ],
-    },
-    {
-      title: "Planta Primera",
-      image: "/images/galeria/webp/cocina1.webp",
-      alt: "Cocina moderna y luminosa en Peña da Osa con salida a terraza",
-      description: "El espacio principal de convivencia",
-      features: [
-        "Cocina completamente equipada con terraza",
-        "Salón principal espacioso y luminoso",
-        "3 habitaciones confortables (una con baño privado)",
-        "Baño general de diseño moderno",
-        "Vistas panorámicas desde la terraza",
-      ],
-    },
-    {
-      title: "Planta Superior",
-      image: "/images/galeria/webp/salon.webp",
-      alt: "Salón de cine exclusivo en la planta superior de Peña da Osa",
-      description: "El refugio privado y exclusivo",
-      features: [
-        "Salón de cine exclusivo para entretenimiento",
-        "3 habitaciones dobles amplias",
-        "Todas las habitaciones con baño privado",
-        "Máxima privacidad y confort",
-        "Diseño elegante y moderno",
-      ],
-    },
-  ];
+  const { t, i18n } = useTranslation();
 
-  const amenities = [
-    { icon: Film, title: "Sala de Cine", description: "Entretenimiento exclusivo para grupos" },
-    { icon: Wifi, title: "WiFi Alta Velocidad", description: "Internet gratuito en toda la casa" },
-    { icon: Flame, title: "Cocina Tradicional", description: "Cocina de hierro para experiencias auténticas" },
-    { icon: Car, title: "Parking Privado", description: "Espacio seguro para varios vehículos" },
-    { icon: PawPrint, title: "Pet-Friendly", description: "Tus mascotas son bienvenidas" },
-    { icon: BedDouble, title: "6 Habitaciones", description: "Capacidad para grupos de hasta 12-14 personas" },
-    { icon: Bath, title: "7 Baños", description: "Máxima privacidad: casi todas con baño propio" },
-    { icon: UtensilsCrossed, title: "Cocina Equipada", description: "Todo lo necesario para grandes banquetes" },
-  ];
+  const floors = useMemo(() => [
+    {
+      title: t('the_house.ground_floor'),
+      image: "/images/galeria/webp/fixed-exterior2.webp",
+      alt: "Patio tradicional gallego de piedra en Peña da Osa con horno antiguo",
+      description: t('the_house.ground_floor_desc'),
+      features: [
+        t('the_house.ground_f1'),
+        t('the_house.ground_f2'),
+        t('the_house.ground_f3'),
+        t('the_house.ground_f4'),
+      ],
+    },
+    {
+      title: t('the_house.first_floor'),
+      image: "/images/galeria/webp/fixed-cocina1.webp",
+      alt: "Cocina moderna y luminosa en Peña da Osa con salida a terraza",
+      description: t('the_house.first_floor_desc'),
+      features: [
+        t('the_house.first_f1'),
+        t('the_house.first_f2'),
+        t('the_house.first_f3'),
+        t('the_house.first_f4'),
+        t('the_house.first_f5'),
+      ],
+    },
+    {
+      title: t('the_house.upper_floor'),
+      image: "/images/galeria/webp/fixed-salon.webp",
+      alt: "Salón de cine exclusivo en la planta superior de Peña da Osa",
+      description: t('the_house.upper_floor_desc'),
+      features: [
+        t('the_house.upper_f1'),
+        t('the_house.upper_f2'),
+        t('the_house.upper_f3'),
+        t('the_house.upper_f4'),
+        t('the_house.upper_f5'),
+      ],
+    },
+  ], [t]);
+
+  const amenities = useMemo(() => [
+    { icon: Film, title: t('the_house.amenity_cinema'), description: t('the_house.amenity_cinema_desc') },
+    { icon: Wifi, title: t('the_house.amenity_wifi'), description: t('the_house.amenity_wifi_desc') },
+    { icon: Flame, title: t('the_house.amenity_kitchen'), description: t('the_house.amenity_kitchen_desc') },
+    { icon: Car, title: t('the_house.amenity_parking'), description: t('the_house.amenity_parking_desc') },
+    { icon: PawPrint, title: t('the_house.amenity_pets'), description: t('the_house.amenity_pets_desc') },
+    { icon: BedDouble, title: t('the_house.amenity_rooms'), description: t('the_house.amenity_rooms_desc') },
+    { icon: Bath, title: t('the_house.amenity_baths'), description: t('the_house.amenity_baths_desc') },
+    { icon: UtensilsCrossed, title: t('the_house.amenity_equipped'), description: t('the_house.amenity_equipped_desc') },
+  ], [t]);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -69,19 +73,19 @@ function LaCasaPage() {
   return (
     <>
       <Helmet>
-        <title>La Casa - Peña da Osa | 6 Habitaciones, 7 Baños y Sala de Cine</title>
+        <title>{t('the_house.title', 'La Casa - Peña da Osa | 6 Habitaciones, 7 Baños y Sala de Cine')}</title>
         <meta
           name="description"
-          content="Descubre la distribución de Peña da Osa: casa rural de 3 plantas con 6 habitaciones, 7 baños, sala de cine, patio tradicional y vistas a la Ribeira Sacra."
+          content={t('the_house.description', 'Descubre la distribución de Peña da Osa: casa rural de 3 plantas con 6 habitaciones, 7 baños, sala de cine, patio tradicional y vistas a la Ribeira Sacra.')}
         />
         <link rel="canonical" href="https://penadaosa.com/lacasa" />
       </Helmet>
 
       <PageHero
-        eyebrow="Arquitectura y Confort"
-        title={<>Explora <span className="text-[#e5c988] italic">la Casa</span></>}
-        subtitle="Una construcción tradicional de piedra meticulosamente restaurada que combina el alma de la Galicia rural con lujos modernos."
-        backgroundImage="/images/galeria/webp/exterior10.webp"
+        eyebrow={t('the_house.eyebrow')}
+        title={<>{i18n.language === 'en' ? 'Explore' : 'Explora'} <span className="text-[#e5c988] italic">{t('common.the_house')}</span></>}
+        subtitle={t('the_house.hero_subtitle')}
+        backgroundImage="/images/galeria/webp/fixed-exterior10.webp"
       />
 
       {/* Intro Section - Merged from About */}
@@ -95,7 +99,7 @@ function LaCasaPage() {
               className="relative rounded-[2rem] overflow-hidden shadow-2xl h-[500px]"
             >
               <img
-                src="/images/galeria/webp/exterior9.webp"
+                src="/images/galeria/webp/fixed-exterior9.webp"
                 alt="Exterior de piedra tradicional de Peña da Osa"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -106,18 +110,16 @@ function LaCasaPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-5xl font-serif text-[#1a1e23] mb-8">El Alma de la Piedra</h2>
+              <h2 className="text-4xl md:text-5xl font-serif text-[#1a1e23] mb-8">{t('the_house.intro_title')}</h2>
               <div className="h-1 w-20 bg-[#d4765d] mb-8"></div>
               <p className="text-stone-600 mb-6 leading-relaxed text-lg font-light">
-                Pena da Osa no es solo un alojamiento; es un testimonio de la arquitectura tradicional gallega.
-                Sus muros de granito guardan historias de siglos, ahora renovados para ofrecer un refugio de paz.
+                {t('the_house.intro_p1')}
               </p>
               <p className="text-stone-600 mb-8 leading-relaxed text-lg font-light">
-                Con sus 3 plantas y espacios diseñados para convivir, es el lugar ideal para familias numerosas
-                o grupos de amigos que buscan desconectar sin renunciar a la comodidad de un hotel de lujo.
+                {t('the_house.intro_p2')}
               </p>
               <Button asChild className="bg-[#1a1e23] text-white hover:bg-[#d4765d] rounded-full px-8 py-6">
-                <a href="#distribucion">Ver distribución por plantas</a>
+                <a href="#distribucion">{t('the_house.view_dist')}</a>
               </Button>
             </motion.div>
           </div>
@@ -134,8 +136,8 @@ function LaCasaPage() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-serif text-[#1a1e23]">Distribución por plantas</h2>
-            <p className="text-stone-500 mt-4 text-lg">Más de 400m² dedicados a tu descanso</p>
+            <h2 className="text-4xl md:text-5xl font-serif text-[#1a1e23]">{t('the_house.dist_title')}</h2>
+            <p className="text-stone-500 mt-4 text-lg">{t('the_house.dist_subtitle')}</p>
           </motion.div>
 
           {floors.map((floor, index) => (
@@ -182,8 +184,8 @@ function LaCasaPage() {
       <section className="py-24 bg-[#1a1e23] text-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif mb-6 text-[#e5c988]">Servicios y Equipamiento</h2>
-            <p className="text-stone-400 max-w-2xl mx-auto">No falta detalle para que tu estancia sea perfecta, desde el entretenimiento hasta el descanso.</p>
+            <h2 className="text-4xl md:text-5xl font-serif mb-6 text-[#e5c988]">{t('the_house.amenities_title')}</h2>
+            <p className="text-stone-400 max-w-2xl mx-auto">{t('the_house.amenities_subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -211,11 +213,11 @@ function LaCasaPage() {
       <section className="py-32 bg-[#f5f3ef] text-center">
         <div className="max-w-4xl mx-auto px-6">
           <Users className="w-12 h-12 text-[#d4765d] mx-auto mb-8" />
-          <h2 className="text-5xl font-serif text-[#1a1e23] mb-8">¿Listo para venir con los tuyos?</h2>
-          <p className="text-stone-600 text-xl mb-12 font-light">Reserva la casa completa en exclusiva para tu grupo.</p>
+          <h2 className="text-5xl font-serif text-[#1a1e23] mb-8">{t('the_house.cta_ready')}</h2>
+          <p className="text-stone-600 text-xl mb-12 font-light">{t('the_house.cta_p')}</p>
           <Button size="lg" className="bg-[#d4765d] text-white hover:bg-[#1a1e23] px-12 py-8 rounded-full shadow-2xl transition-all" asChild>
-            <a href="https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=es" target="_blank" rel="noopener noreferrer">
-              Consultar disponibilidad real
+            <a href={`https://www.avaibook.com/reservas/nueva_reserva.php?cod_alojamiento=348171&lang=${i18n.language === 'en' ? 'en' : 'es'}`} target="_blank" rel="noopener noreferrer">
+              {t('the_house.cta_button')}
             </a>
           </Button>
         </div>

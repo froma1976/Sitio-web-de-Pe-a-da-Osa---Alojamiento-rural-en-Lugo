@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Send, Sparkles, User, Bot, X, MessageCircle } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 export default function StayPlanner() {
+    const { t, i18n } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [prompt, setPrompt] = useState('');
     const [messages, setMessages] = useState([]);
@@ -46,14 +48,16 @@ export default function StayPlanner() {
     // Initial Greeting
     useEffect(() => {
         if (userName && isOpen && messages.length === 0) {
+            const greeting = t('chatbot.greeting', { name: userName });
+
             setMessages([
                 {
                     role: 'assistant',
-                    content: `¡Hola **${userName}**! 👋\n\nSoy Osa, tu concierge personal. Puedo ayudarte a:\n• Ver disponibilidad de fechas\n• Conocer la casa y sus instalaciones\n• Descubrir qué hacer en la Ribeira Sacra\n\n¿En qué puedo ayudarte?`
+                    content: greeting
                 }
             ]);
         }
-    }, [userName, isOpen]);
+    }, [userName, isOpen, i18n.language, t]);
 
     const handleNameSubmit = (e) => {
         e.preventDefault();
@@ -73,7 +77,6 @@ export default function StayPlanner() {
         if (!prompt.trim()) return;
 
         const currentPrompt = prompt;
-        const historyForWebhook = [...messages, { role: 'user', content: currentPrompt }];
         setPrompt('');
         setLoading(true);
 
@@ -86,15 +89,16 @@ export default function StayPlanner() {
                 setTimeout(() => {
                     setMessages(prev => [...prev, {
                         role: 'assistant',
-                        content: `¡Hola ${userName}! He recibido tu mensaje. En modo demo no puedo consultar disponibilidad real, pero configura el webhook de n8n para activarme completamente.`
+                        content: t('chatbot.n8n_config', { name: userName })
                     }]);
                     setLoading(false);
                 }, 1000);
                 return;
             }
 
+            const currentLang = i18n.language === 'en' ? 'English' : 'Spanish';
             const knowledgeContext = `
-[REGLA DE CONTEXTO: Eres Osa. Usa ESTA información prioritaria para responder y MANTÉN siempre el hilo de la conversación anterior. Si te preguntan "¿cuál es el mejor?" o similar, responde sobre el ÚLTIMO tema tratado]
+[REGLA DE CONTEXTO: Eres Osa. Responde SIEMPRE en ${currentLang}. Usa ESTA información prioritaria para responder y MANTÉN siempre el hilo de la conversación anterior. Si te preguntan "¿cuál es el mejor?" o similar, responde sobre el ÚLTIMO tema tratado]
 INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
 - GASTRONOMÍA: Restaurante Berso (Gourmet, Guía Michelin, huerta propia), A Cantina dos Meus Avós (Casero, brasas, asador familiar excepcional).
 - BODEGAS: Val da Lenda (Pionera en Amandi, vino Sete Tolos, catas Laura), Adega Algueira.
@@ -119,6 +123,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                     prompt: currentPrompt,
                     userName: userName,
                     sessionId: sessionId,
+                    language: i18n.language,
                     history: historyForWebhook
                 }),
             });
@@ -138,14 +143,14 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                 aiText = extractText(data);
             }
 
-            aiText = aiText || "Lo siento, no entendí eso. ¿Puedes reformular tu pregunta?";
+            aiText = aiText || t('chatbot.error_fallback');
             setMessages(prev => [...prev, { role: 'assistant', content: aiText }]);
 
         } catch (error) {
             console.error(error);
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: "Lo siento, hubo un problema de conexión. Inténtalo de nuevo en un momento."
+                content: t('chatbot.connection_error')
             }]);
         } finally {
             setLoading(false);
@@ -160,7 +165,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
     };
 
     const handleReset = () => {
-        if (window.confirm('¿Quieres borrar el historial y empezar de nuevo?')) {
+        if (window.confirm(t('chatbot.reset_confirm'))) {
             setMessages([]);
             try {
                 localStorage.removeItem('osa_username');
@@ -186,7 +191,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setIsOpen(true)}
                         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#d4765d] text-white rounded-full shadow-2xl shadow-[#d4765d]/30 flex items-center justify-center cursor-pointer hover:bg-[#c26952] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4765d] focus-visible:ring-offset-2"
-                        aria-label="Abrir chat con Osa"
+                        aria-label={t('chatbot.floating_aria')}
                     >
                         <MessageCircle className="w-6 h-6" />
                     </motion.button>
@@ -209,16 +214,15 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                                 <div className="w-16 h-16 bg-[#d4765d]/10 rounded-full mx-auto flex items-center justify-center mb-6">
                                     <Sparkles className="w-7 h-7 text-[#d4765d]" />
                                 </div>
-                                <h3 className="text-2xl font-serif text-stone-800 mb-2">¡Hola! Soy Osa</h3>
+                                <h3 className="text-2xl font-serif text-stone-800 mb-2">{t('chatbot.title')}</h3>
                                 <p className="text-stone-500 mb-8 leading-relaxed">
-                                    Tu asistente personal para descubrir Pena da Osa.
-                                    ¿Cómo te llamas?
+                                    {t('chatbot.subtitle')}
                                 </p>
 
                                 <form onSubmit={handleNameSubmit} className="w-full space-y-4">
                                     <input
                                         type="text"
-                                        placeholder="Tu nombre"
+                                        placeholder={t('chatbot.name_placeholder')}
                                         className="w-full px-5 py-3 bg-white border-2 border-stone-200 rounded-xl focus:border-[#d4765d] outline-none text-stone-800 placeholder-stone-400 transition-all text-center"
                                         value={tempName}
                                         onChange={(e) => setTempName(e.target.value)}
@@ -232,7 +236,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                                             : 'bg-[#d4765d] text-white hover:bg-[#c26952] shadow-lg shadow-[#d4765d]/20'
                                             }`}
                                     >
-                                        Empezar conversación
+                                        {t('chatbot.start_button')}
                                     </button>
                                 </form>
 
@@ -240,7 +244,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                                     onClick={() => setIsOpen(false)}
                                     className="mt-6 text-stone-400 hover:text-stone-600 text-sm transition-colors"
                                 >
-                                    Cerrar
+                                    {t('chatbot.close')}
                                 </button>
                             </div>
                         ) : (
@@ -256,7 +260,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                                             <h3 className="text-white font-serif text-base">Osa</h3>
                                             <p className="text-stone-400 text-xs flex items-center gap-1.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                                Disponibilidad en tiempo real
+                                                {t('chatbot.online_status')}
                                             </p>
                                         </div>
                                     </div>
@@ -264,14 +268,14 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                                         <button
                                             onClick={handleReset}
                                             className="p-2 text-stone-400 hover:text-white transition-colors rounded-lg hover:bg-white/10"
-                                            title="Reiniciar conversación"
+                                            title={t('chatbot.reset_confirm')}
                                         >
                                             <User className="w-4 h-4" />
                                         </button>
                                         <button
                                             onClick={() => setIsOpen(false)}
                                             className="p-2 text-stone-400 hover:text-white transition-colors rounded-lg hover:bg-white/10"
-                                            aria-label="Cerrar chat"
+                                            aria-label={t('chatbot.close')}
                                         >
                                             <X className="w-5 h-5" />
                                         </button>
@@ -352,7 +356,7 @@ INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
                                         <textarea
                                             className="flex-1 px-4 py-2.5 bg-stone-100 border-none rounded-xl focus:ring-2 focus:ring-[#d4765d]/20 outline-none resize-none text-stone-800 placeholder-stone-400 text-sm min-h-[44px] max-h-[100px]"
                                             rows="1"
-                                            placeholder="Escribe tu mensaje..."
+                                            placeholder={t('chatbot.input_placeholder')}
                                             value={prompt}
                                             onChange={(e) => setPrompt(e.target.value)}
                                             onKeyDown={handleKeyDown}

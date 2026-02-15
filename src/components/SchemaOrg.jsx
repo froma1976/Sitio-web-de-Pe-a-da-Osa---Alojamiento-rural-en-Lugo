@@ -1,13 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 function SchemaOrg() {
+    const { t } = useTranslation();
+
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "LodgingBusiness",
         "name": "Pena da Osa",
         "image": "https://penadaosa.com/images/galeria/webp/exterior11.webp",
-        "description": "Retiro rural con encanto en Lugo, Galicia. Arquitectura tradicional de piedra, vistas al campo y todas las comodidades modernas.",
+        "description": t('schema.description'),
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Os Pacios, 4",
@@ -30,11 +33,11 @@ function SchemaOrg() {
             "ratingValue": "5"
         },
         "amenityFeature": [
-            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuito" },
-            { "@type": "LocationFeatureSpecification", "name": "Pet-Friendly" },
-            { "@type": "LocationFeatureSpecification", "name": "Zona de Barbacoa" },
-            { "@type": "LocationFeatureSpecification", "name": "Vistas al campo" },
-            { "@type": "LocationFeatureSpecification", "name": "Jardín y patio" }
+            { "@type": "LocationFeatureSpecification", "name": t('schema.wifi') },
+            { "@type": "LocationFeatureSpecification", "name": t('schema.pet_friendly') },
+            { "@type": "LocationFeatureSpecification", "name": t('schema.bbq') },
+            { "@type": "LocationFeatureSpecification", "name": t('schema.views') },
+            { "@type": "LocationFeatureSpecification", "name": t('schema.garden') }
         ],
         "checkinTime": "16:00",
         "checkoutTime": "11:00"
