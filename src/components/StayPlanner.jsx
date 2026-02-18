@@ -96,24 +96,14 @@ export default function StayPlanner() {
                 return;
             }
 
-            const currentLang = i18n.language === 'en' ? 'English' : 'Spanish';
-            const knowledgeContext = `
-[REGLA DE CONTEXTO: Eres Osa. Responde SIEMPRE en ${currentLang}. Usa ESTA información prioritaria para responder y MANTÉN siempre el hilo de la conversación anterior. Si te preguntan "¿cuál es el mejor?" o similar, responde sobre el ÚLTIMO tema tratado]
-INFORMACIÓN DEL ENTORNO (RIBEIRA SACRA 2026):
-- GASTRONOMÍA: Restaurante Berso (Gourmet, Guía Michelin, huerta propia), A Cantina dos Meus Avós (Casero, brasas, asador familiar excepcional).
-- BODEGAS: Val da Lenda (Pionera en Amandi, vino Sete Tolos, catas Laura), Adega Algueira.
-- ACTIVIDADES: Catamaranes desde Doade o Os Chancís por el Sil (Muy recomendados).
-- EVENTOS 2026: Ribeira Sacra Festival (24-26 Julio), Baile da Cachucha (Febrero).
-`;
-
             const historyForWebhook = messages.map(m => ({
                 ...m,
-                content: m.role === 'user' ? `${knowledgeContext} PREGUNTA: ${m.content}` : m.content
+                content: String(m.content || '').trim()
             }));
 
             historyForWebhook.push({
                 role: 'user',
-                content: `${knowledgeContext} PREGUNTA ACTUAL: ${currentPrompt}`
+                content: currentPrompt
             });
 
             const res = await fetch(webhookUrl, {
