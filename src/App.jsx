@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import MainLayout from "@/layouts/MainLayout";
 import HomePage from "@/pages/HomePage";
@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path="lacasa" element={<LaCasaPage />} />
-            <Route path="about" element={<LaCasaPage />} />
+            <Route path="about" element={<Navigate to="/lacasa" replace />} />
             <Route path="entorno" element={<EntornoPage />} />
             <Route path="galeria" element={<GaleriaPage />} />
             <Route path="contacto" element={<ContactoPage />} />

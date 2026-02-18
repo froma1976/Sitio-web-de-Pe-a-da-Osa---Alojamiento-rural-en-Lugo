@@ -7,10 +7,12 @@ import { Toaster } from "@/components/ui/toaster";
 import AmbientBackground from "@/components/AmbientBackground";
 import SchemaOrg from "@/components/SchemaOrg";
 import StayPlanner from "@/components/StayPlanner";
+import LanguageHead from "@/components/LanguageHead";
 
 function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <LanguageHead />
       <AmbientBackground />
       <SchemaOrg />
       <Header />

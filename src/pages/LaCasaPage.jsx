@@ -79,6 +79,11 @@ function LaCasaPage() {
           content={t('the_house.description', 'Descubre la distribución de Peña da Osa: casa rural de 3 plantas con 6 habitaciones, 7 baños, sala de cine, patio tradicional y vistas a la Ribeira Sacra.')}
         />
         <link rel="canonical" href="https://penadaosa.com/lacasa" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://penadaosa.com/lacasa" />
+        <meta property="og:title" content={t('the_house.title', 'La Casa - Peña da Osa')} />
+        <meta property="og:description" content={t('the_house.description', 'Descubre la distribución de Peña da Osa: casa rural de 3 plantas con 6 habitaciones, 7 baños, sala de cine, patio tradicional y vistas a la Ribeira Sacra.')} />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/fixed-exterior10.webp" />
       </Helmet>
 
       <PageHero
@@ -100,8 +105,10 @@ function LaCasaPage() {
             >
               <img
                 src="/images/galeria/webp/fixed-exterior9.webp"
-                alt="Exterior de piedra tradicional de Peña da Osa"
+                alt={t('the_house.alt_exterior_stone', 'Exterior de piedra tradicional de Peña da Osa')}
                 className="absolute inset-0 w-full h-full object-cover"
+                width="700" height="500"
+                loading="lazy"
               />
             </motion.div>
 
@@ -155,6 +162,8 @@ function LaCasaPage() {
                   src={floor.image}
                   alt={floor.alt}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                  width="700" height="400"
+                  loading="lazy"
                 />
               </motion.div>
 

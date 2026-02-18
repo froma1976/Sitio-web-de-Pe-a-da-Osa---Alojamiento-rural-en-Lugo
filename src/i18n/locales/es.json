@@ -16,6 +16,7 @@
         "page_title": "Reservas - Pena da Osa | Reserva Online Segura",
         "meta_desc": "Reserva tu estancia en Pena da Osa. Sistema de reservas online seguro para tu escapada a Galicia.",
         "og_title": "Reservas - Pena da Osa | Reserva tu Estancia",
+        "og_desc": "Reserva tu estancia en Pena da Osa. Sistema de reservas online seguro para tu escapada a Galicia.",
         "eyebrow": "Reservas",
         "title": "Reserva tu estancia",
         "subtitle": "Sistema online seguro. Si prefieres, también puedes abrirlo en una nueva pestaña.",
@@ -176,7 +177,8 @@
         "amenity_equipped_desc": "Todo lo necesario para grandes banquetes",
         "cta_ready": "¿Listo para venir con los tuyos?",
         "cta_p": "Reserva la casa completa en exclusiva para tu grupo.",
-        "cta_button": "Consultar disponibilidad real"
+        "cta_button": "Consultar disponibilidad real",
+        "alt_exterior_stone": "Exterior de piedra tradicional de Peña da Osa"
     },
     "environment": {
         "title": "Entorno - Pena da Osa | Ribeira Sacra, Cañones del Sil",
@@ -223,7 +225,9 @@
         "dist_monforte": "Monforte de Lemos",
         "dist_monforte_time": "25 min",
         "dist_ourense": "Ourense",
-        "dist_ourense_time": "45 min"
+        "dist_ourense_time": "45 min",
+        "alt_vineyards": "Paisaje de viñedos en terrazas de la Ribeira Sacra",
+        "alt_sil_canyons": "Vista panorámica de los Cañones del Sil con viñedos"
     },
     "gallery": {
         "title": "Galería - Pena da Osa | Recorrido Fotográfico",

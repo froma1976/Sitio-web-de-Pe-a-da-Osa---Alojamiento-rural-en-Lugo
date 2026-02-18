@@ -59,6 +59,12 @@ function EntornoPage() {
           name="description"
           content={t('environment.description')}
         />
+        <link rel="canonical" href="https://penadaosa.com/entorno" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://penadaosa.com/entorno" />
+        <meta property="og:title" content={t('environment.title')} />
+        <meta property="og:description" content={t('environment.description')} />
+        <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/alrededor8.webp" />
       </Helmet>
 
       <PageHero
@@ -71,8 +77,10 @@ function EntornoPage() {
       <section className="relative h-[500px] overflow-hidden">
         <img
           src="/images/galeria/webp/alrededor4.webp"
-          alt="Paisaje de viñedos en terrazas de la Ribeira Sacra"
+          alt={t('environment.alt_vineyards', 'Paisaje de viñedos en terrazas de la Ribeira Sacra')}
           className="w-full h-full object-cover"
+          width="1400" height="500"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a1e23]/80 to-transparent flex items-end">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
@@ -161,8 +169,10 @@ function EntornoPage() {
             >
               <img
                 src="/images/galeria/webp/alrededor.webp"
-                alt="Vista panorámica de los Cañones del Sil con viñedos"
+                alt={t('environment.alt_sil_canyons', 'Vista panorámica de los Cañones del Sil con viñedos')}
                 className="w-full h-[500px] object-cover"
+                width="700" height="500"
+                loading="lazy"
               />
             </motion.div>
           </div>

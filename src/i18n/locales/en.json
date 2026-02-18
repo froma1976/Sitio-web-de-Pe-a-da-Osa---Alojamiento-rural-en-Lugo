@@ -16,6 +16,7 @@
         "page_title": "Bookings - Pena da Osa | Secure Online Booking",
         "meta_desc": "Book your stay at Pena da Osa. Secure online booking system for your getaway to Galicia.",
         "og_title": "Bookings - Pena da Osa | Book Your Stay",
+        "og_desc": "Book your stay at Pena da Osa. Secure online booking system for your getaway to Galicia.",
         "eyebrow": "Bookings",
         "title": "Book your stay",
         "subtitle": "Secure online system. If you prefer, you can also open it in a new tab.",
@@ -176,7 +177,8 @@
         "amenity_equipped_desc": "Everything you need for large banquets",
         "cta_ready": "Ready to visit with your loved ones?",
         "cta_p": "Book the complete house exclusively for your group.",
-        "cta_button": "Check real-time availability"
+        "cta_button": "Check real-time availability",
+        "alt_exterior_stone": "Traditional stone exterior of Peña da Osa"
     },
     "environment": {
         "title": "Environment - Pena da Osa | Ribeira Sacra, Sil Canyons",
@@ -223,7 +225,9 @@
         "dist_monforte": "Monforte de Lemos",
         "dist_monforte_time": "25 min",
         "dist_ourense": "Ourense",
-        "dist_ourense_time": "45 min"
+        "dist_ourense_time": "45 min",
+        "alt_vineyards": "Terraced vineyard landscape of the Ribeira Sacra",
+        "alt_sil_canyons": "Panoramic view of the Sil Canyons with vineyards"
     },
     "gallery": {
         "title": "Gallery - Pena da Osa | Photo Tour",

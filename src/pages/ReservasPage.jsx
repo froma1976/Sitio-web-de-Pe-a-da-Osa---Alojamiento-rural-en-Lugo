@@ -21,6 +21,7 @@ function ReservasPage() {
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://penadaosa.com/reservas" />
                 <meta property="og:title" content={t('reservas.og_title')} />
+                <meta property="og:description" content={t('reservas.og_desc')} />
                 <meta property="og:image" content="https://penadaosa.com/images/galeria/webp/exterior12.webp" />
             </Helmet>
 

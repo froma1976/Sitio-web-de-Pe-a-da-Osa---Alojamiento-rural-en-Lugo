@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SchemaOrg from "@/components/SchemaOrg";
+
 import { useTranslation } from "react-i18next";
 
 function HomePage() {
@@ -47,10 +47,10 @@ function HomePage() {
         <meta property="twitter:image" content="https://penadaosa.com/images/galeria/webp/alrededor.webp" />
 
         {/* Additional SEO */}
-        <link rel="canonical" content="https://penadaosa.com/" />
+        <link rel="canonical" href="https://penadaosa.com/" />
         <meta name="keywords" content="casa rural galicia, alojamiento rural lugo, turismo rural galicia, casa rural con encanto, pena da osa" />
       </Helmet>
-      <SchemaOrg />
+
 
       <div ref={containerRef} className="bg-[#1a1e23] min-h-screen text-white font-sans selection:bg-[#d4765d] selection:text-white">
 
@@ -137,7 +137,7 @@ function HomePage() {
 
               {/* Arquitectura */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px] cursor-pointer">
-                <img src="/images/galeria/webp/fixed-exterior2.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_arch')} />
+                <img src="/images/galeria/webp/fixed-exterior2.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_arch')} width="700" height="300" />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                 <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 max-w-xs">
                   <h3 className="text-2xl md:text-3xl font-serif leading-tight mb-2">{t('home.architecture')}</h3>
@@ -147,21 +147,21 @@ function HomePage() {
 
               {/* Naturaleza */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px] cursor-pointer">
-                <img src="/images/galeria/webp/alrededor8.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_nature')} loading="lazy" />
+                <img src="/images/galeria/webp/alrededor8.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_nature')} loading="lazy" width="700" height="300" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-sm font-bold tracking-widest uppercase">{t('home.nature')}</span>
               </div>
 
               {/* Paseos */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px] cursor-pointer">
-                <img src="/images/galeria/webp/exterior6.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_walks')} loading="lazy" />
+                <img src="/images/galeria/webp/exterior6.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_walks')} loading="lazy" width="700" height="300" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-sm font-bold tracking-widest uppercase">{t('home.walks')}</span>
               </div>
 
               {/* Entorno */}
               <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group h-[300px] cursor-pointer">
-                <img src="/images/galeria/webp/alrededor5.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_env')} loading="lazy" />
+                <img src="/images/galeria/webp/alrededor5.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_env')} loading="lazy" width="700" height="300" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-sm font-bold tracking-widest uppercase">{t('home.environment')}</span>
               </div>
@@ -180,7 +180,7 @@ function HomePage() {
               transition={{ delay: 0 * 0.1 }}
               className="relative rounded-2xl overflow-hidden group cursor-pointer"
             >
-              <img src="/images/galeria/webp/pet-friendly.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_pet')} />
+              <img src="/images/galeria/webp/pet-friendly.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_pet')} width="300" height="400" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">{t('home.pet_friendly')}</span>
             </motion.div>
@@ -192,7 +192,7 @@ function HomePage() {
               transition={{ delay: 1 * 0.1 }}
               className="relative rounded-2xl overflow-hidden group cursor-pointer"
             >
-              <img src="/images/galeria/webp/exterior.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_bbq')} />
+              <img src="/images/galeria/webp/exterior.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_bbq')} width="300" height="400" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">{t('home.bbq')}</span>
             </motion.div>
@@ -204,7 +204,7 @@ function HomePage() {
               transition={{ delay: 2 * 0.1 }}
               className="relative rounded-2xl overflow-hidden group cursor-pointer"
             >
-              <img src="/images/galeria/webp/wifi-work.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_wifi')} />
+              <img src="/images/galeria/webp/wifi-work.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_wifi')} width="300" height="400" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">{t('home.wifi')}</span>
             </motion.div>
@@ -216,7 +216,7 @@ function HomePage() {
               transition={{ delay: 3 * 0.1 }}
               className="relative rounded-2xl overflow-hidden group cursor-pointer"
             >
-              <img src="/images/galeria/webp/alrededor4.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_views')} />
+              <img src="/images/galeria/webp/alrededor4.webp" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={t('home.alt_views')} width="300" height="400" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <span className="absolute bottom-4 left-4 font-serif text-lg tracking-wide text-white">{t('home.views')}</span>
             </motion.div>
