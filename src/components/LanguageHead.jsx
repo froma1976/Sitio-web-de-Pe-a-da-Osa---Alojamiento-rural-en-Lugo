@@ -22,9 +22,9 @@ function LanguageHead() {
     return (
         <Helmet>
             <html lang={currentLang} />
-            <link rel="alternate" hreflang="es" href={`${baseUrl}${currentPath}`} />
-            <link rel="alternate" hreflang="en" href={`${baseUrl}${currentPath}`} />
-            <link rel="alternate" hreflang="x-default" href={`${baseUrl}${currentPath}`} />
+            <link rel="alternate" hrefLang="es" href={`${baseUrl}${currentPath}`} />
+            <link rel="alternate" hrefLang="en" href={`${baseUrl}${currentPath}`} />
+            <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${currentPath}`} />
         </Helmet>
     );
 }
