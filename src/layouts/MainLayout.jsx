@@ -21,7 +21,6 @@ function MainLayout() {
       </main>
       <Footer />
       <Toaster />
-      <StayPlanner />
     </div>
   );
 }
