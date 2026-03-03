@@ -88,7 +88,7 @@ function HomePage() {
               transition={{ delay: 0.5, duration: 1 }}
               className="text-white text-sm md:text-lg tracking-[0.3em] font-light mt-6 uppercase drop-shadow-lg"
             >
-              Casa rural en Lugo, a 5 minutos andando de Sober, en la Ribeira Sacra
+              {t('home.hero_subtitle')}
             </motion.p>
 
             <motion.div
